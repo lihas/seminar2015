@@ -339,7 +339,21 @@ Therefore a hypervisor which caters to all possible architectures is impractical
   \paragraph{Micro kernels}
   These are an interesting class of operation systems. The main goal of a micro kernel operating system is to keep the kernel code minimal. Most of the services provided by
   a conventional operating system, is provided by user space programs (called servers). Micro kernels are supposed to be general enough to allow construction of
-  arbitrary operating systems on top of them. As they have minimal amount of code that runs in privileged mode
+  arbitrary operating systems on top of them. As they have minimal amount of code that runs in privileged mode, also called trusted computing base or TCB, they are
+  attractive for applications for which security is a major concern. This minimality also is suitable for embedded systems, as they already are constrained on
+  resources. Microvisor\cite{Heiser:2010:OMC:1851276.1851282} is an approach to use a micro kernel as a hypervisor. A micro kernels have important differences from
+  a hypervisor, and therefore they must be modified to support the primitives that a hyper visor exports to VMs.
+  Some of the differences are:
+  \begin{enumerate}
+  \item Micro kernels abstract execution time as threads, while hypervisors abstract it as vCPU(s).
+  \item A hypervisor exports interfaces to hardware devices to the guest OSes, while the drivers reside inside hypervisor. In a micro kernels drivers reside in user space. Xen
+  is a notable exception to this distinction between hypervisor and micro-kernel, which although is a hypervisor, the drivers run in user space (DOM-0) and communication with them
+  is done by IPC (inter-process communication).
+  \item Communication between VMs of a hypervisor happen over TCP/IP network, whereas the main form of communication on a micro kernel is IPC.
+  \end{enumerate}
+  
+  The differences in the way they abstract execution time can be resolved by mapping vCPU(s) to threads.
+  
   \paragraph{Linux containers (LXC)}
   Drawbacks:\\
   \begin{enumerate}

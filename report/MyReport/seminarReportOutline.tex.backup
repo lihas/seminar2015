@@ -146,9 +146,9 @@ Arm has several CPU modes, typically more than 4. These modes generally have the
 x86 comes with the standard 4-ring architecture and many registers are shared between the modes.
 \\\\Following are the processor modes supported on most ARM architectures.\\
 \begin{enumerate}
-\item \emph{\textmd{User Mode }}: Normal execution mode for programs, like ring 3 in x86 architexture.\\
-\item \emph{\textmd{Supervisor Mode}} : Priviledged Mode for operating system, some registers of this mode are not shared with user mode. This mode is entered on system reset and on execution of svc(supervisor call) instruction.\\
-\item \emph{\textmd{System Mode }}: It is a priviledged mode for the OS, which uses the same set of registers as user mode.It is like ring 0 in x86. This is the only priviledged mode that cannot be directly entered on an interrupt.
+\item \emph{\textmd{User Mode }}: Normal execution mode for programs, like ring 3 in x86 architecture.\\
+\item \emph{\textmd{Supervisor Mode}} : Privileged Mode for operating system, some registers of this mode are not shared with user mode. This mode is entered on system reset and on execution of svc(supervisor call) instruction.\\
+\item \emph{\textmd{System Mode }}: It is a privileged mode for the OS, which uses the same set of registers as user mode.It is like ring 0 in x86. This is the only privileged mode that cannot be directly entered on an interrupt.
 \\
 \item \emph{\textmd{IRQ}} : This mode is used for handling low priority interrupts.
 \\
@@ -242,7 +242,7 @@ removed in ARMv8.
 \section{Virtualization solutions}
 Embedded systems encompass a big variety of processor architectures. Unlike desktop, and server platforms, there is no dominant architecture. 
 Therefore a hypervisor which caters to all possible architectures is impractical to make, as subtle differences in architectures greatly impact VMM design. The definition of efficiently virtualizable platform, as given by Popek and Goldberg\cite{Popek:1974:FRV:361011.361073} leads to
- two broad categories of processors: ones that satisfy the constraint for efficient virtualization, i.e. for them the set of sensitive instructions is a subset of priviledged instructions, 
+ two broad categories of processors: ones that satisfy the constraint for efficient virtualization, i.e. for them the set of sensitive instructions is a subset of privileged instructions, 
  and the ones that do not satisfy this constraint. The ones that are efficiently virtualizable (eg. PowerArchitecture), are not without any limitations, and therefore a VMM must try to overcome these
  to run with lowest overheads. Processors that cannot be efficiently virtualized either rely on, either hardware extensions, or on some software techniques. The categories of
  virtualization solutions studied by me, in the course of this seminar, and the relation between them can be seen in figure~\ref{fig:papers}.
@@ -251,7 +251,7 @@ Therefore a hypervisor which caters to all possible architectures is impractical
  \centering
  \includegraphics[width=300px]{papers}
  \caption{categories of virtualization solutions for different kinds of embedded systems. \footnotesize{ virtualizable: processors for which set of sensitive instructions is a subset of
- priviledged instructions} \label{fig:papers}}
+ privileged instructions} \label{fig:papers}}
  \end{figure}
     
 
@@ -337,6 +337,20 @@ Therefore a hypervisor which caters to all possible architectures is impractical
   of these, and the bits corresponding to domains must be set correctly.
   
   \paragraph{Micro kernels}
+  These are an interesting class of operation systems. The main goal of a micro kernel operating system is to keep the kernel code minimal. Most of the services provided by
+  a conventional operating system, is provided by user space programs (called servers). Micro kernels are supposed to be general enough to allow construction of
+  arbitrary operating systems on top of them. As they have minimal amount of code that runs in privileged mode, also called trusted computing base or TCB, they are
+  attractive for applications for which security is a major concern. This minimality also is suitable for embedded systems, as they already are constrained on
+  resources. Microvisor\cite{Heiser:2010:OMC:1851276.1851282} is an approach to use a micro kernel as a hypervisor. A micro kernels have important differences from
+  a hypervisor, and therefore they must be modified to support the primitives that a hyper visor exports to VMs.
+  Some of the differences are:
+  \begin{enumerate}
+  \item Micro kernels abstract execution time as threads, while hypervisors abstract it as vCPU(s).
+  \item A hypervisor exports interfaces to hardware devices to the guest OSes, while the drivers reside inside hypervisor. In a micro kernels drivers reside in user space. Xen
+  is a notable exception to this distinction between hypervisor and micro-kernel, which although is a hypervisor, the drivers run in user space (DOM-0) and communication with them
+  is done by IPC (inter-process communication).
+  \end{enumerate}
+  
   
   \paragraph{Linux containers (LXC)}
   Drawbacks:\\

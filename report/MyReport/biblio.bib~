@@ -108,7 +108,7 @@ ISSN={0272-1732},
  keywords = {arm, hypervisors, linux, multicore, operating systems, virtualization},
 }
 
-@inproceedings{kvm-for-arm,
+@inproceedings{kVM-for-ARM,
 author = {Dall, Christoffer and Nieh, Jason},
 title = {KVM for ARM},
 booktitle = {Proceedings of the Ottawa Linux Symposium},
