@@ -1,0 +1,8 @@
+ Kuhns F, Schmidt D, Levine D. The design and performance of a real-time I/O subsystem. Real-time Technology 1999:154–163, DOI: 10.1109/RTTAS.1999.777670.
+
+    Web of Science® Times Cited: 11
+
+33
+Armand F, Gien M. A practical look at micro-kernels and virtual machine monitors, 6th IEEE Consumer Communications and Networking Conference, CCNC 2009, 2009; 1–7, DOI: 10.1109/CCNC.2009.4784874.
+34
+Park Y, Yoo S. Real-time operating system virtualization for Xen-ARM. (Available from http://os.korea.ac.kr/publication\_papers/inter\_confer/ParkMiri\_ISET\_2009.pdf). [Accessed at 10 ago. 2010].

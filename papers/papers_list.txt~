@@ -1,0 +1,52 @@
+===Conferences===
+
+ASPLOS
+
+
+
+
+
+SIGOPS
+
+
+
+Micro IEEE  
+
+
+
+CCNC
+
+[2008] [[http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=4446362|Xen on ARM: System Virtualization Using Xen Hypervisor for ARM-Based Secure Mobile Phones]] [+3]
+
+
+APSys
+
+[2011] [[http://dl.acm.org/citation.cfm?id=2103799.2103813|Hardware-supported virtualization on ARM]] [Talks about H/W VTX on ARM]  [+3.5]
+
+IIES
+
+[2008] [[http://dl.acm.org/citation.cfm?id=1435458.1435461|The Role of Virtualization in Embedded System]] [+3]
+ 
+ICCIT
+
+[2010] Performance analysis towards a KVM-Based embedded real-time virtualization architecture
+
+EMSOFT
+
+[2011] [[http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6064510|RT-XEN]] [+2] [Talks about implementing Real time scheduling in Xen]
+
+ETFA
+
+
+
+EDERC
+
+[2014] Processor virtualization on embedded linux systems    [Talks about Virt. extensions ]
+
+DAC
+
+
+[2011] [[http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=5982011|Virtualizing real-time embedded systems with Java]] [Extensions in Java language that make it suitable for embedded systems]
+
+
+

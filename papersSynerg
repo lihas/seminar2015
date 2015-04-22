@@ -1,0 +1,68 @@
+======Full virtualization======
+
+
+
+
+
+
+
+
+======Paravirtualization======
+
+
+
+
+
+
+
+
+
+======Special purpose hypervisors======
+====Targeting Security====
+
+
+
+================SURVEY============================
+
+===Survey Papers===
+[EFTA 2013] [[http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=6648012&tag=1|Virtualization technologies in embedded real-time systems]] [2.25]
+
+[ICECC 2011][[http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6066716|Smartphone Virtualization: Status and Challenges]] [2.75]
+
+[IIES 2008] [[http://dl.acm.org/citation.cfm?id=1435461|The role of virtualization in embedded systems]]
+
+[IJDNS 2014] [[http://www.hindawi.com/journals/ijdsn/aa/310308/|The Study and Evaluation of ARM-Based Mobile Virtualization]] [+4] [Looks at motivations for virtualizing ARM and the solutions proposed for it]
+
+[2012][[http://onlinelibrary.wiley.com/doi/10.1002/spe.1156/full|Current techniques and future trends in embedded system's virtualization]] [Softw: Pract. Exper., 42: 917–944] [+3]
+===Use cases===
+[DAC 2011] [[http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=5982010|Virtualizing embedded systems - why bother?]] [1.5] [Presents use cases]
+
+[DASC 2010] [[http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=5655297|Applying virtualization to avionics systems — The integration challenges]]
+
+[RSP 2010] [[http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=5656430|Embedded systems' virtualization: The next challenge?]] [+2.5]
+
+===Evaluations===
+[Proceedings of the International Conference on Computer, Electrical, and Systems Science, and Engineering. 2010] [[http://www.ruhr-uni-bochum.de/integriertesysteme/emuco/files/performance_evaluation_of_para_virtualization.pdf|Performance Evaluation of Para-virtualization on Modern Mobile Phone Platform]] [+3] [Perfomance evaluation of OKL4 microvisor]
+
+[SIGBED 2014][[http://dl.acm.org/citation.cfm?id=2668143|Performance overhead of KVM on Linux 3.9 on ARM cortex-a15]]
+
+
+
+======OTHER VIRTUALIZATION APPROACHES============
+
+[Proceedings of the 6th Linux.Conf.Au, Canberra, April, 2005][[http://ssrg.nicta.com/publications/papers/Leslie_vSH_05.pdf|Wombat: A Portable User-Mode Linux for Embedded Systems]]
+
+
+=================REAL TIME CONSTRAINTS======================
+[2011] [[http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6064510|RT-XEN]] [+3.5] [Talks about implementing Real time scheduling in Xen]
+
+[JSEA 2012] [[http://www.scirp.org/journal/PaperInformation.aspx?PaperID=18574|A State-of-the-Art Survey on Real-Time Issues in Embedded Systems Virtualization]]
+
+[ETFA 2011][[http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=6059185|Towards real-time scheduling of virtual machines without kernel modifications]]
+
+===============VIRTUALIZATION EXTENSIONS=======================
+
+[ACM SIGBED 2014] [[http://dl.acm.org/citation.cfm?id=2668145|Towards hardware embedded virtualization technology: architectural enhancements to an ARM SoC]] [+3.5] [H/W extension based VMMs and H/W extensions on embedded processors]
+
+===================IO============================
+[[https://dl.acm.org/citation.cfm?id=2701228|Power-efficient and high-performance block I/O framework for mobile virtualization systems]] [Proposes a solution which shifts between exit mode of I/O and polling as required to reduce processor usage, and increase I/O throughput] [Related paper to track [[http://researcher.watson.ibm.com/researcher/files/il-ABELG/elvis-systor12.pdf|ELVIS]] ] [Read]

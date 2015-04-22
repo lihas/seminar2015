@@ -1,0 +1,15 @@
+M. Masmano, I. Ripoll, A. Crespo and J. J. Metge “XtratuM: A Hypervisor for Safety Critical Embedded Systems,” Proceedings of Real-Time Linux Workshop, Dresden, 28-30 September 2009.
+
+A. Masrur, S. Drössler, T. Pfeuffer and S. Chakraborty, “VM-Based Real-Time Services for Automotive Control Applications,” Proceedings of the 2010 IEEE 16th International Conference on Embedded and Real-Time Computing Systems and Applications, Macau, 23-25 August 2010, pp. 218-223. doi:10.1109/RTCSA.2010.38
+
+
+A. Masrur, T. Pfeuffer, M. Geier, S. Drössler and S. Chakraborty, “Designing VM Schedulers for Embedded Real-Time Applications,” Proceedings of the 7th IEEE/ACM/IFIP International Conference on Hardware/Software Codesign and System Synthesis, Taipei, 9-14 October 2011, pp. 29-38. doi:10.1145/2039370.2039378
+
+
+S. Yoo, K.-H. Kwak, J.-H. Jo and C. Yoo, “Toward Under-Millisecond I/O Latency in Xen-ARM,” The 2nd ACM SIGOPS Asia-Pacific Workshop on Systems, Shanghai, 11-12 July 2011, p. 14.
+
+A. Iqbal, N. Sadeque and R. I. Mutia, “An Overview of Microkernel, Hypervisor and Microvisor Virtualization Approaches for Embedded Systems,” Technical Report, Lund University, Lund, 2009.
+
+
+
+[66] K. Gudeth, M. Pirretti, K. Hoeper and R. Buskey, “Delivering Secure Applications on Commercial Mobile Devices: The Case for Bare Metal Hypervisors,” Proceedings of the 1st ACM Workshop on Security and Privacy in Smartphones and Mobile Devices, Chicago, 17-21 October 2011, pp. 33-38. doi:10.1145/2046614.2046622
