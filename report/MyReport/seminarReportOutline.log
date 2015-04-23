@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/Debian) (preloaded format=pdflatex 2015.4.3)  23 APR 2015 04:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/Debian) (preloaded format=pdflatex 2015.4.3)  23 APR 2015 16:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -662,72 +662,73 @@ Underfull \hbox (badness 10000) in paragraph at lines 196--199
 
  []
 
-[9] <papers.png, id=178, 704.231pt x 320.397pt>
+[9] <papers.png, id=183, 704.231pt x 320.397pt>
 File: papers.png Graphic file (type png)
  <use papers.png>
-Package pdftex.def Info: papers.png used on input line 248.
+Package pdftex.def Info: papers.png used on input line 252.
 (pdftex.def)             Requested size: 301.1261pt x 137.00046pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 255--284
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 255--284
+ [10]
+Underfull \hbox (badness 10000) in paragraph at lines 259--288
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 255--284
+Underfull \hbox (badness 10000) in paragraph at lines 259--288
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 255--284
-
- []
-
-[10] [11 <./papers.png>] [12] [13]
-Underfull \hbox (badness 10000) in paragraph at lines 338--339
+Underfull \hbox (badness 10000) in paragraph at lines 259--288
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 345--379
+Underfull \hbox (badness 10000) in paragraph at lines 259--288
+
+ []
+
+[11 <./papers.png>] [12] [13] [14]
+Underfull \hbox (badness 10000) in paragraph at lines 387--423
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 345--379
+Underfull \hbox (badness 10000) in paragraph at lines 387--423
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 345--379
+Underfull \hbox (badness 10000) in paragraph at lines 387--423
 
  []
 
-[14] [15] (./seminarReportOutline.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 393.
- [16
+
+Underfull \hbox (badness 10000) in paragraph at lines 387--423
+
+ []
+
+[15] [16] [17] [18] [19] (./seminarReportOutline.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 499.
+ [20
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 393.
- (./seminarReportOutline.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 393.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 393.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 499.
+
+(./seminarReportOutline.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 499.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 499.
 Package rerunfilecheck Info: File `seminarReportOutline.out' has not changed.
-(rerunfilecheck)             Checksum: F8D78AE0BAE8416A8BAD427EC1AE7E39;1405.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 393.
+(rerunfilecheck)             Checksum: 10E73189A29BA6FB2C686A88B2247662;1486.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 499.
  ) 
 Here is how much of TeX's memory you used:
- 5848 strings out of 495021
- 84249 string characters out of 6181345
- 177534 words of memory out of 5000000
- 8929 multiletter control sequences out of 15000+600000
+ 5881 strings out of 495021
+ 84670 string characters out of 6181345
+ 175720 words of memory out of 5000000
+ 8934 multiletter control sequences out of 15000+600000
  8884 words of font info for 32 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 29i,8n,47p,752b,407s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 29i,8n,47p,751b,407s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
@@ -740,10 +741,10 @@ fonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti1
 0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on seminarReportOutline.pdf (16 pages, 227645 bytes).
+Output written on seminarReportOutline.pdf (20 pages, 244755 bytes).
 PDF statistics:
- 309 PDF objects out of 1000 (max. 8388607)
- 273 compressed objects within 3 object streams
- 85 named destinations out of 1000 (max. 500000)
- 158 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 366 PDF objects out of 1000 (max. 8388607)
+ 325 compressed objects within 4 object streams
+ 113 named destinations out of 1000 (max. 500000)
+ 166 words of extra memory for PDF output out of 10000 (max. 10000000)
 

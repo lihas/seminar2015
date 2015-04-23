@@ -346,16 +346,38 @@ Therefore a hypervisor which caters to all possible architectures is impractical
   Some of the differences are:
   \begin{enumerate}
   \item Micro kernels abstract execution time as threads, while hypervisors abstract it as vCPU(s).
+  \item Hypervisor abstracts memory by emulating a virtual MMU, micro kernels on the other hand provide this abstraction in the form of address spaces.
   \item A hypervisor exports interfaces to hardware devices to the guest OSes, while the drivers reside inside hypervisor. In a micro kernels drivers reside in user space. Xen
   is a notable exception to this distinction between hypervisor and micro-kernel, which although is a hypervisor, the drivers run in user space (DOM-0) and communication with them
   is done by IPC (inter-process communication).
   \item Communication between VMs of a hypervisor happen over TCP/IP network, whereas the main form of communication on a micro kernel is IPC.
   \end{enumerate}
   
-  The differences in the way they abstract execution time can be resolved by mapping vCPU(s) to threads.
+  The differences in the way they abstract execution time can be resolved by mapping vCPU(s) to threads. Modern micro kernels like L4 microkernels already use a minimal
+  form of page tables, which can be used to abstract memory, as in hypervisors. The hardware devices abstraction provided by microkernels need not be modified, and as shown
+  by Xen, can be used as is. The high speed IPC which is a characteristic feature of micro kernels, and can be used to provide a fast way of communication between VMs.
   
   \paragraph{Linux containers (LXC)}
-  Drawbacks:\\
+  This is an operating system level virtualization technique which allows multiple isolated Linux systems on a single Linux kernel. It abstracts VMs as name spaces, which
+  can be used to give a view of multiples isolated Linux systems running on a single host. These name spaces cannot be used to isolate access to all the devices found on an embedded system. To
+  use LXC for virtualization, there must be addition mechanisms to multiplex these devices. Cells\cite{Andrus:2011:CVM:2043556.2043574} is a virtualization framework
+  which uses a concept of device name spaces to handle these devices. It is made to virtualize a modern smarphone running Android. It categorizes VMs as FVM (Foreground VM) and BVM (Background VMs).
+  Of all the running VMs, only one is allowed to handle user interaction, and display content on screen.
+  \\Device name space is a method to make the devices and other components of a system which cannot be multiplexed using LXC, aware of name spaces. This can be done in four ways:
+  \begin{enumerate}
+   \item Writing a wrapper around a driver that is aware of name spaces. Graphics subsystem can be virtulized in this way. The wrapper driver will ensure
+   that when FVM tries to write to Frame buffer, it is rendered on screen, while When a BVM  tries to write, all writes go to another buffer. The contents of this buffer
+   is used to render display once BVM makes a switch to foreground.
+   \item Making subsystems aware of name spaces. The input subsystem on Android sends a particular event notification to all the processes listening for it. This subsystem
+   can be made aware of name spaces so that such a notification is only sent to FVM, since only an FVM is allowed to handle user interaction.
+   \item Make the driver itself aware of name spaces.
+   \item Write a user space proxy.Some subsystems like the cellular subsystem have no component in kernel that can be made aware of virtualization. Its software stack is
+   a proprietary and only a user space library is exposed to use the services of this susbsystem. To virtualize it, therefore access to this user space library must be
+   arbitrated by code sitting on top of this library and controlling access to it.
+  \end{enumerate}
+Rest of the components, like memory, secondary storage, and CPU can be multiplexed using mechanisms provided by LXC.
+LXC provides a clean and low overhead way to for Virtualization, but has the following drawbacks.
+  
   \begin{enumerate}
    \item Security is limited by the security of the kernel, as for all containers the kernel remains the same.
    \item Cannot host applications from different operating systems simultaneously.
@@ -396,15 +418,79 @@ Therefore a hypervisor which caters to all possible architectures is impractical
   drivers, also all the devices can be given to each VM, unlike in MVP. This also allow each VM to do power management independent of others. This feature however is purely dependent on FLR functionality.
   For switching between VMs, both the techniques require explicit user intent, which is shown by pressing a button on home screen. Also, the VM(s) present in 
   background remain reactive in both the cases.
-  
-  
-  
+  \\\\
+  Other special purpose hypervisors include the ones that are made to support an RTOS, along with a conventional OS. One example of such a hypervisor is RT-XEN\cite{6064510}.
+ 
+ \section{Salient aspects of virtualizing a smart phone}
+ Apart from the constraints of an embedded systems, as discussed previously, there are several factors such as how a user interacts with a mobile phone can affect the development.
+ For example in a mobile phone under certain usage scenarios it is feasible to allocate all devices to one VM exclusively as is done by vNative\cite{7006388}. This
+ simplifies the development of a hypervisor. The following discussion borrows from previous chapters to summarize and suggest efficient ways of virtualizing different components of a smart phone,
+ while taking into account all these additional factors.
+ 
+ \subsection*{CPU}
+ For multiplexing the CPU, any of the techniques presented in generic hypervisors section earlier can be used. The usual methods, as explained there are paravirtualization,
+ H/W assisted virtualization, and Linux containers.
+ \subsection*{Memory}
+ Memory can be dynamically multiplexed using shadow paging, or second level page tables.
+ Static partitioning of memory can be done by techniques such as IMR or Isolated Memory Regions which is a hardware supported mechanism provided by Intel to configure
+ the memory regions which are accessible to the currently executing process. This configuration can be done by VMM for each VM.
+ 
+ \subsection*{File system / secondary storage}
+ For virtualizing access to secondary storage separate mount points can be used, as done in LXC. This provides a low overhead way of partitioning the storage.
+ This cannot be used to support different file systems to different VMs. Using LVM, to partition disk space is a more flexible approach, and can be used to provide different file
+ systems to different VMs.
+ \\
+ For the case where LXC is used, and separate mount points are used to partition storage, a unioning file system can be used to save space.
+ \\Moreover mobile phones generally use SD cards for secondary storage, and for them non-sequential writes are orders of magnitude slower than sequential writes. To speed up
+ writes in such a scenario, the writes can be buffered by hypervisor.
+\\
+To optimize file I/O at the block layer, a mechanism suggested by\cite{Lee:2015:PHB:2701126.2701228} can be used. Exit based I/O, i.e. when an exit is made to hypervisor
+on each I/O request leads to less throughput. Alternatively for doing I/O the guest can simply place a request in a request queue, which will be periodically monitored 
+by a polling thread. In this case no VM exit is required, and the guest can continue execution after placing the request in the queue. The polling thread can  
+aggregate requests, which will result in a higher throughput. The disadvantage of polling approach is that CPU usage is high, because of this polling thread. A dynamic method
+which uses exit mode of I/O when load is less and switches to polling mode, when I/O load increases, will lead to lower CPU utilization than purely polling mode, and 
+higher throughput than purely exit based I/O. The I/O interval can also be adjusted to keep CPU utilization at an optimum level.
 
+ \subsection*{Network}
+ As embedded devices are already resource constrained, one should aim for minimum overhead way of multiplexing resources.
+ PVTCP or Paravirtualized TCP provides one such low overhead way of virtualizing network. PVTCP consists of two parts, a PV client present in guest VM, and an offload engine
+ present in host. PV cleint intercepts all network services requested by guest, before transport layer, and forwards these to offload engine. This engine acts as a proxy which
+ forwards connections on behalf of the guest. This avoids traversing two network stacks, one in guest, and one in host.
+ \subsection*{Telephony}
+ The cellular subsystem of a mobile phone consists of proprietary code, and is not amenable to modifications, thus to multiplex such a resource, and provide each VM a unique
+ phone number is difficult. Cells\cite{Andrus:2011:CVM:2043556.2043574}, as introduced earlier suggests a novel way to virtualize it.
+ VOIP can be used to assign different number to different VMs. For an incoming call, the VOIP gateway will append an extra digit to the caller ID and then forward the call to
+ the sim card of the mobile phone. There the hypervisor can forward this call to any of the VM, depending upon the last digit of caller id (notice that this can only support 10 VMs, which is more tha enough for a mobile phone). Similarly for outgoing call
+ the hypervisor can intercept access to sim card, check the VM which is making the access, connect to VOIP gateway and forward the call via that gateway so that the called party
+ sees the number assigned to the VM in the incoming call's caller ID.
+
+ \subsection*{Graphics} 
+ Graphics can be virtualized by writing a wrapper over the graphics driver. This will ensure that only the VM which is currently interacting with the users gets to render content
+ on screen, while attempts by other VMs can be redirected to another buffer. This buffer can be used to render screen of other VMs when they come in foreground. If the OS
+ running in VMs supports screen redraw capability, then this additional buffer need not be maintained, and the OS can simply be instructed to redraw the screen when VM switch
+ happens. Modern OSes directly map a part of virtual space of a process to frame buffer. This allows applications to render contents directly. In such a scenario, the mechanism
+ to manage graphics when a VM switch occurs becomes complicated, and entails the following.
+ \begin{enumerate}
+  \item Screen memory remapping: \\
+  The page table entries of processes, in the FVM which have frame buffer mapped to their address space are modified to point to a background buffer. Similar remapping
+  is done for process in BVM which is coming to foreground. They must now map to the frame buffer of the screen.
+  \item Screen memory copy:\\
+  This step copies memory of frame buffer to background buffer of the outgoing VM, and copies contents of background buffer to frame buffer of incoming VM.
+  \item Hardware state synchronisation.\\
+  This step saves the graphics configuration, and other meta data related to frmae buffer for outgoing VM, and restores these for an incoming VM.
+  \item GPU coordination: \\
+  Notify GPU of the switch that just happened.
+ \end{enumerate}
 
  
-
-
 \section{Conclusion}
+Virtualization on embedded systems, is witnessing huge interest, the need to support heterogeneous set of applications, and security being the main driving factors.
+The use cases and environments in which they are supposed to work wary greatly from those of conventional desktop, and server platforms. The absence of a dominant standard,
+and variety of operational constraints pose a challenge to development of applications. Linux has emerged as the most widely supported platform across all these
+architectures, and therefore provides a promising programming environment. The applicability of virtualization to safety critical embedded systems is yet to be seen, as these
+have stringent reliability requirements. With Qualcomm recently announcing server grade ARM cores, an attempt to encroach upon the space dominated by x86 can be clearly seen.
+This will give rise to more innovation, which might present new use cases for virtualizing embedded systems, which were previously unseen. The future of virtualization
+on these platforms therefore depends on innovation of manufacturers and demands of consumers.
 \clearpage
 \addcontentsline{toc}{section}{References}{}
 \bibliographystyle{plain}

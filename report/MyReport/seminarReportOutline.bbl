@@ -1,4 +1,11 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{Andrus:2011:CVM:2043556.2043574}
+Jeremy Andrus, Christoffer Dall, Alexander~Van't Hof, Oren Laadan, and Jason
+  Nieh.
+\newblock Cells: A virtual mobile smartphone architecture.
+\newblock In {\em Proceedings of the Twenty-Third ACM Symposium on Operating
+  Systems Principles}, SOSP '11, pages 173--187, New York, NY, USA, 2011. ACM.
 
 \bibitem{Barr:2010:VMV:1899928.1899945}
 Ken Barr, Prashanth Bungale, Stephen Deasy, Viktor Gyuris, Perry Hung, Craig
@@ -32,6 +39,21 @@ Gernot Heiser.
 \newblock In {\em Proceedings of the 48th Design Automation Conference}, DAC
   '11, pages 901--905, New York, NY, USA, 2011. ACM.
 
+\bibitem{Heiser:2010:OMC:1851276.1851282}
+Gernot Heiser and Ben Leslie.
+\newblock The okl4 microvisor: Convergence point of microkernels and
+  hypervisors.
+\newblock In {\em Proceedings of the First ACM Asia-pacific Workshop on
+  Workshop on Systems}, APSys '10, pages 19--24, New York, NY, USA, 2010. ACM.
+
+\bibitem{Lee:2015:PHB:2701126.2701228}
+Kihong Lee, Dongwoo Lee, and Young~Ik Eom.
+\newblock Power-efficient and high-performance block i/o framework for mobile
+  virtualization systems.
+\newblock In {\em Proceedings of the 9th International Conference on Ubiquitous
+  Information Management and Communication}, IMCOM '15, pages 57:1--57:7, New
+  York, NY, USA, 2015. ACM.
+
 \bibitem{Mittal:2013:EVE:2499368.2451163}
 Aashish Mittal, Dushyant Bansal, Sorav Bansal, and Varun Sethi.
 \newblock Efficient virtualization on embedded power architecture\&\#174;
@@ -42,5 +64,11 @@ Aashish Mittal, Dushyant Bansal, Sorav Bansal, and Varun Sethi.
 Gerald~J. Popek and Robert~P. Goldberg.
 \newblock Formal requirements for virtualizable third generation architectures.
 \newblock {\em Commun. ACM}, 17(7):412--421, July 1974.
+
+\bibitem{6064510}
+Sisu Xi, J.~Wilson, Chenyang Lu, and C.~Gill.
+\newblock Rt-xen: Towards real-time hypervisor scheduling in xen.
+\newblock In {\em Embedded Software (EMSOFT), 2011 Proceedings of the
+  International Conference on}, pages 39--48, Oct 2011.
 
 \end{thebibliography}

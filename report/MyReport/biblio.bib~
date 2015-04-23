@@ -117,3 +117,51 @@ month = {July},
 pages = {45--56},
 }
 
+
+@inproceedings{Heiser:2010:OMC:1851276.1851282,
+ author = {Heiser, Gernot and Leslie, Ben},
+ title = {The OKL4 Microvisor: Convergence Point of Microkernels and Hypervisors},
+ booktitle = {Proceedings of the First ACM Asia-pacific Workshop on Workshop on Systems},
+ series = {APSys '10},
+ year = {2010},
+ isbn = {978-1-4503-0195-4},
+ location = {New Delhi, India},
+ pages = {19--24},
+ numpages = {6},
+ url = {http://doi.acm.org/10.1145/1851276.1851282},
+ doi = {10.1145/1851276.1851282},
+ acmid = {1851282},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {embedded systems, hypervisors, microkernels, real-time systems, virtual machines},
+} 
+
+
+@inproceedings{Andrus:2011:CVM:2043556.2043574,
+ author = {Andrus, Jeremy and Dall, Christoffer and Hof, Alexander Van't and Laadan, Oren and Nieh, Jason},
+ title = {Cells: A Virtual Mobile Smartphone Architecture},
+ booktitle = {Proceedings of the Twenty-Third ACM Symposium on Operating Systems Principles},
+ series = {SOSP '11},
+ year = {2011},
+ isbn = {978-1-4503-0977-6},
+ location = {Cascais, Portugal},
+ pages = {173--187},
+ numpages = {15},
+ url = {http://doi.acm.org/10.1145/2043556.2043574},
+ doi = {10.1145/2043556.2043574},
+ acmid = {2043574},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {Android, smartphones, virtualization},
+} 
+
+
+@INPROCEEDINGS{6064510, 
+author={Sisu Xi and Wilson, J. and Chenyang Lu and Gill, C.}, 
+booktitle={Embedded Software (EMSOFT), 2011 Proceedings of the International Conference on}, 
+title={RT-Xen: Towards real-time hypervisor scheduling in Xen}, 
+year={2011}, 
+month={Oct}, 
+pages={39-48}, 
+keywords={Linux;embedded systems;operating systems (computers);public domain software;scheduling;virtual machines;virtualisation;Linux operating systems;RT-Xen;complex real-time systems;deferrable server;embedded systems;open-source virtual machine monitor;periodic server;polling server;real-time hypervisor scheduling;real-time systems;sporadic server;system integration;virtualized environments;Open source software;Operating systems;Real time systems;Schedules;Scheduling;Servers;Virtual machine monitors;deferrable server;hierarchical scheduling;periodic server;polling server;real-time virtualization;sporadic server},}
+
