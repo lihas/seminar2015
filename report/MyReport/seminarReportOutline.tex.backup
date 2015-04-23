@@ -1,14 +1,16 @@
-\documentclass[a4paper,10pt]{article}
+%\documentclass[a4paper,10pt]{article}
+\documentclass[seminar,twoside]{iitbreport}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
-\usepackage[hidelinks]{hyperref}
-\usepackage{xcolor}
-\hypersetup{
-    colorlinks,
-    linkcolor={blue!30!black},
-    citecolor={blue!50!black},
-    urlcolor={blue!80!black}
-}
+%\usepackage[hidelinks]{hyperref}
+%\usepackage{xcolor}
+%\hypersetup{
+%    hidelinks,
+%     colorlinks,
+%    linkcolor={blue!30!black},
+%    citecolor={blue!50!black},
+%    urlcolor={blue!80!black}
+%}
 
 \setcounter{secnumdepth}{4}
 \setcounter{tocdepth}{4}
@@ -20,8 +22,18 @@
 
 \begin{document}
 
+
+\title{Virtualization for embedded systems}
+\author{Sahil Singh \\ (143050001) \\ under the guidance of \\ Prof. Purushottam Kulkarni}
+%\date{\today}
+\degree{M.Tech}
+\dept{Computer Science and Engineering}
+\monthyear{APRIL 2015}
+
+%\makecoverpage
 \maketitle
-\newpage
+    
+
 %\begin{abstract}
  
 %\end{abstract}
@@ -484,9 +496,13 @@ higher throughput than purely exit based I/O. The I/O interval can also be adjus
 
  
 \section{Conclusion}
-Virtualization on embedded systems, is witnessing huge interest, The need to support heterogeneous set of applications, and security being the main driving factors.
-Their use cases and environments in which they are supposed to work wary greatly from those of conventional desktop, and server platforms. The absence of a dominant standard
-, and variety of operational constraints pose a challenge to development of applications.
+Virtualization on embedded systems, is witnessing huge interest, the need to support heterogeneous set of applications, and security being the main driving factors.
+The use cases and environments in which they are supposed to work wary greatly from those of conventional desktop, and server platforms. The absence of a dominant standard,
+and variety of operational constraints pose a challenge to development of applications. Linux has emerged as the most widely supported platform across all these
+architectures, and therefore provides a promising programming environment. The applicability of virtualization to safety critical embedded systems is yet to be seen, as these
+have stringent reliability requirements. With Qualcomm recently announcing server grade ARM cores, an attempt to encroach upon the space dominated by x86 can be clearly seen.
+This will give rise to more innovation, which might present new use cases for virtualizing embedded systems, which were previously unseen. The future of virtualization
+on these platforms therefore depends on innovation of manufacturers and demands of consumers.
 \clearpage
 \addcontentsline{toc}{section}{References}{}
 \bibliographystyle{plain}

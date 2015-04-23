@@ -1,19 +1,19 @@
 This is BibTeX, Version 0.99d (TeX Live 2014/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
-The top-level auxiliary file: seminarReportOutline.aux
+The top-level auxiliary file: seminarReportFinal.aux
 I couldn't open style file iitbauthyr.bst
----line 19 of file seminarReportOutline.aux
+---line 19 of file seminarReportFinal.aux
  : \bibstyle{iitbauthyr
  :                     }
 I'm skipping whatever remains of this command
-Illegal, another \bibstyle command---line 54 of file seminarReportOutline.aux
+Illegal, another \bibstyle command---line 54 of file seminarReportFinal.aux
  : \bibstyle
  :          {plain}
 I'm skipping whatever remains of this command
-I found no style file---while reading file seminarReportOutline.aux
+I found no style file---while reading file seminarReportFinal.aux
 You've used 11 entries,
             0 wiz_defined-function locations,
-            105 strings with 1042 characters,
+            105 strings with 1038 characters,
 and the built_in function-call counts, 0 in all, are:
 = -- 0
 > -- 0
