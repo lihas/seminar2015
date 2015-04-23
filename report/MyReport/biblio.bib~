@@ -16,9 +16,7 @@
  publisher = {ACM},
  address = {New York, NY, USA},
  keywords = {abstract model, formal requirements, hypervisor, operating system, proof, sensitive instruction, third generation architecture, virtual machine, virtual machine monitor, virtual memory},
-} 
-
-
+}
 @article{Mittal:2013:EVE:2499368.2451163,
  author = {Mittal, Aashish and Bansal, Dushyant and Bansal, Sorav and Sethi, Varun},
  title = {Efficient Virtualization on Embedded Power Architecture\&\#174; Platforms},
@@ -38,7 +36,6 @@
  address = {New York, NY, USA},
  keywords = {adaptive data mirroring, adaptive page resizing, architecture design, code patching, dynamic binary translation, in-place binary translation, power architecture platforms, read/write tracing, tlb, virtual machine monitor, virtualization},
 } 
-
 @article{Barr:2010:VMV:1899928.1899945,
  author = {Barr, Ken and Bungale, Prashanth and Deasy, Stephen and Gyuris, Viktor and Hung, Perry and Newell, Craig and Tuch, Harvey and Zoppis, Bruno},
  title = {The VMware Mobile Virtualization Platform: Is That a Hypervisor in Your Pocket?},
@@ -57,7 +54,6 @@
  publisher = {ACM},
  address = {New York, NY, USA},
 } 
-
 @ARTICLE{7006388, 
 author={YaoZu Dong and JunJie Mao and HaiBing Guan and Jian Li and Yu Chen}, 
 journal={Micro, IEEE}, 
@@ -164,4 +160,24 @@ year={2011},
 month={Oct}, 
 pages={39-48}, 
 keywords={Linux;embedded systems;operating systems (computers);public domain software;scheduling;virtual machines;virtualisation;Linux operating systems;RT-Xen;complex real-time systems;deferrable server;embedded systems;open-source virtual machine monitor;periodic server;polling server;real-time hypervisor scheduling;real-time systems;sporadic server;system integration;virtualized environments;Open source software;Operating systems;Real time systems;Schedules;Scheduling;Servers;Virtual machine monitors;deferrable server;hierarchical scheduling;periodic server;polling server;real-time virtualization;sporadic server},}
+
+@inproceedings{Lee:2015:PHB:2701126.2701228,
+ author = {Lee, Kihong and Lee, Dongwoo and Eom, Young Ik},
+ title = {Power-efficient and High-performance Block I/O Framework for Mobile Virtualization Systems},
+ booktitle = {Proceedings of the 9th International Conference on Ubiquitous Information Management and Communication},
+ series = {IMCOM '15},
+ year = {2015},
+ isbn = {978-1-4503-3377-1},
+ location = {Bali, Indonesia},
+ pages = {57:1--57:7},
+ articleno = {57},
+ numpages = {7},
+ url = {http://doi.acm.org/10.1145/2701126.2701228},
+ doi = {10.1145/2701126.2701228},
+ acmid = {2701228},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {I/O virtualization, hypervisor, mobile virtualization, polling, virtual machine},
+} 
+
 

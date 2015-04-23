@@ -1,55 +1,66 @@
 This is BibTeX, Version 0.99d (TeX Live 2014/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: seminarReportFinal.aux
-I couldn't open style file iitbauthyr.bst
----line 19 of file seminarReportFinal.aux
- : \bibstyle{iitbauthyr
- :                     }
-I'm skipping whatever remains of this command
+The style file: iitbauthyr.bst
 Illegal, another \bibstyle command---line 54 of file seminarReportFinal.aux
  : \bibstyle
  :          {plain}
 I'm skipping whatever remains of this command
-I found no style file---while reading file seminarReportFinal.aux
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Database file #1: biblio.bib
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Merlin.mbs v4.21 2009-07-09. 
+Warning--empty chapter and pages in Andrus:2011:CVM:2043556.2043574
+Warning--empty chapter and pages in KVM-for-ARM
+Warning--empty chapter and pages in Dall:2014:KDI:2541940.2541946
+Warning--empty chapter and pages in Heiser:2011:VES:2024724.2024925
+Warning--empty chapter and pages in Heiser:2010:OMC:1851276.1851282
+Warning--empty chapter and pages in Lee:2015:PHB:2701126.2701228
+Warning--empty chapter and pages in 6064510
 You've used 11 entries,
-            0 wiz_defined-function locations,
-            105 strings with 1038 characters,
-and the built_in function-call counts, 0 in all, are:
-= -- 0
-> -- 0
-< -- 0
-+ -- 0
-- -- 0
-* -- 0
-:= -- 0
-add.period$ -- 0
-call.type$ -- 0
-change.case$ -- 0
-chr.to.int$ -- 0
-cite$ -- 0
-duplicate$ -- 0
-empty$ -- 0
-format.name$ -- 0
-if$ -- 0
-int.to.chr$ -- 0
-int.to.str$ -- 0
-missing$ -- 0
-newline$ -- 0
-num.names$ -- 0
-pop$ -- 0
-preamble$ -- 0
-purify$ -- 0
-quote$ -- 0
-skip$ -- 0
+            4513 wiz_defined-function locations,
+            985 strings with 11017 characters,
+and the built_in function-call counts, 13510 in all, are:
+= -- 916
+> -- 374
+< -- 39
++ -- 131
+- -- 114
+* -- 2064
+:= -- 1382
+add.period$ -- 22
+call.type$ -- 11
+change.case$ -- 93
+chr.to.int$ -- 11
+cite$ -- 29
+duplicate$ -- 1220
+empty$ -- 1026
+format.name$ -- 218
+if$ -- 2447
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 182
+newline$ -- 152
+num.names$ -- 44
+pop$ -- 390
+preamble$ -- 1
+purify$ -- 82
+quote$ -- 2
+skip$ -- 460
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
-text.length$ -- 0
+substring$ -- 443
+swap$ -- 1199
+text.length$ -- 34
 text.prefix$ -- 0
-top$ -- 0
-type$ -- 0
-warning$ -- 0
-while$ -- 0
+top$ -- 1
+type$ -- 137
+warning$ -- 7
+while$ -- 60
 width$ -- 0
-write$ -- 0
-(There were 3 error messages)
+write$ -- 217
+(There was 1 error message)

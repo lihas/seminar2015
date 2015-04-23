@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/Debian) (preloaded format=pdflatex 2015.4.3)  23 APR 2015 17:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/Debian) (preloaded format=pdflatex 2015.4.3)  23 APR 2015 23:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -686,7 +686,7 @@ LaTeX Font Info:    Font shape `OT1/ppl/bx/it' in size <14.4> not available
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 34.
 
-<iitb-black.pdf, id=80, 557.08125pt x 533.995pt>
+<iitb-black.pdf, id=83, 557.08125pt x 533.995pt>
 File: iitb-black.pdf Graphic file (type pdf)
  <use iitb-black.pdf>
 Package pdftex.def Info: iitb-black.pdf used on input line 34.
@@ -721,87 +721,78 @@ File: utxsyc.fd 2000/12/15 v3.1
 \openout4 = `seminarReportFinal.toc'.
 
  [3]
-Underfull \hbox (badness 10000) in paragraph at lines 44--54
+Underfull \hbox (badness 10000) in paragraph at lines 45--55
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 44--54
+Underfull \hbox (badness 10000) in paragraph at lines 45--55
 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+txr on input line 63.
+LaTeX Font Info:    Try loading font information for OMS+txr on input line 64.
 (/usr/share/texlive/texmf-dist/tex/latex/txfonts/omstxr.fd
 File: omstxr.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    Font shape `OMS/txr/m/n' in size <12> not available
-(Font)              Font shape `OMS/txsy/m/n' tried instead on input line 63.
+(Font)              Font shape `OMS/txsy/m/n' tried instead on input line 64.
 
-Underfull \hbox (badness 10000) in paragraph at lines 63--68
+Underfull \hbox (badness 10000) in paragraph at lines 64--69
 
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 68--71
+Underfull \hbox (badness 10000) in paragraph at lines 69--72
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 71--75
+Underfull \hbox (badness 10000) in paragraph at lines 72--76
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 75--78
+Underfull \hbox (badness 10000) in paragraph at lines 76--79
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 78--82
+Underfull \hbox (badness 10000) in paragraph at lines 79--83
 
  []
 
 [5] [6]
-Underfull \hbox (badness 10000) in paragraph at lines 88--93
+Underfull \hbox (badness 10000) in paragraph at lines 89--94
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 93--98
+Underfull \hbox (badness 10000) in paragraph at lines 94--99
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 98--101
+Underfull \hbox (badness 10000) in paragraph at lines 99--102
 
  []
-
-
-Package natbib Warning: Citation `Heiser:2011:VES:2024724.2024925' undefined on
- input line 111.
 
 [7] [8]
-Underfull \hbox (badness 10000) in paragraph at lines 153--160
+Underfull \hbox (badness 10000) in paragraph at lines 154--161
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--160
+Underfull \hbox (badness 10000) in paragraph at lines 154--161
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--160
+Underfull \hbox (badness 10000) in paragraph at lines 154--161
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--160
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 161--162
+Underfull \hbox (badness 10000) in paragraph at lines 154--161
 
  []
 
@@ -810,127 +801,124 @@ Underfull \hbox (badness 10000) in paragraph at lines 162--163
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 163--164
+
+ []
+
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 163--165
+Underfull \hbox (badness 10000) in paragraph at lines 164--166
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 165--167
+Underfull \hbox (badness 10000) in paragraph at lines 166--168
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 167--169
+Underfull \hbox (badness 10000) in paragraph at lines 168--170
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 169--171
+Underfull \hbox (badness 10000) in paragraph at lines 170--172
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 171--173
+Underfull \hbox (badness 10000) in paragraph at lines 172--174
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 173--175
+Underfull \hbox (badness 10000) in paragraph at lines 174--176
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 177--180
+Underfull \hbox (badness 10000) in paragraph at lines 178--181
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 177--180
+Underfull \hbox (badness 10000) in paragraph at lines 178--181
 
  []
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 181--182
+Underfull \hbox (badness 10000) in paragraph at lines 182--183
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 191--196
+Underfull \hbox (badness 10000) in paragraph at lines 192--197
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 191--196
+Underfull \hbox (badness 10000) in paragraph at lines 192--197
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 191--196
+Underfull \hbox (badness 10000) in paragraph at lines 192--197
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 191--196
+Underfull \hbox (badness 10000) in paragraph at lines 192--197
 
  []
 
 [11]
-Underfull \hbox (badness 10000) in paragraph at lines 205--207
+Underfull \hbox (badness 10000) in paragraph at lines 206--208
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 205--207
+Underfull \hbox (badness 10000) in paragraph at lines 206--208
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 205--207
+Underfull \hbox (badness 10000) in paragraph at lines 206--208
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 208--211
+Underfull \hbox (badness 10000) in paragraph at lines 209--212
 
  []
 
-[12] [13]
-
-Package natbib Warning: Citation `Popek:1974:FRV:361011.361073' on page 14 unde
-fined on input line 256.
-
-<papers.png, id=203, 704.231pt x 320.397pt>
+[12] [13] <papers.png, id=208, 704.231pt x 320.397pt>
 File: papers.png Graphic file (type png)
  <use papers.png>
-Package pdftex.def Info: papers.png used on input line 264.
+Package pdftex.def Info: papers.png used on input line 265.
 (pdftex.def)             Requested size: 301.1261pt x 137.00046pt.
  [14]
-
-Package natbib Warning: Citation `Mittal:2013:EVE:2499368.2451163' on page 15 u
-ndefined on input line 273.
-
-LaTeX Font Info:    Try loading font information for OT1+txtt on input line 286
+LaTeX Font Info:    Try loading font information for OT1+txtt on input line 287
 .
+
 (/usr/share/texlive/texmf-dist/tex/latex/txfonts/ot1txtt.fd
 File: ot1txtt.fd 2000/12/15 v3.1
 )
-Underfull \hbox (badness 10000) in paragraph at lines 271--300
+Underfull \hbox (badness 10000) in paragraph at lines 272--301
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 271--300
+Underfull \hbox (badness 10000) in paragraph at lines 272--301
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 271--300
+Underfull \hbox (badness 10000) in paragraph at lines 272--301
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 271--300
+Underfull \hbox (badness 10000) in paragraph at lines 272--301
 
  []
 
@@ -938,99 +926,55 @@ Underfull \hbox (badness 10000) in paragraph at lines 271--300
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [16]
-
-Package natbib Warning: Citation `Dall:2014:KDI:2541940.2541946' on page 17 und
-efined on input line 319.
-
-[17]
-
-Package natbib Warning: Citation `KVM-for-ARM' on page 18 undefined on input li
-ne 339.
-
-[18]
-
-Package natbib Warning: Citation `Heiser:2010:OMC:1851276.1851282' on page 19 u
-ndefined on input line 356.
-
-
-Overfull \hbox (6.52663pt too wide) in paragraph at lines 365--366
+[17] [18]
+Overfull \hbox (6.52663pt too wide) in paragraph at lines 366--367
 []\OT1/txr/m/n/12 Communication be-tween VMs of a hy-per-vi-sor hap-pen over TC
 P/IP net-work, whereas
  []
 
-
-Package natbib Warning: Citation `Andrus:2011:CVM:2043556.2043574' on page 19 u
-ndefined on input line 375.
-
 [19] [20]
-
-Package natbib Warning: Citation `Barr:2010:VMV:1899928.1899945' on page 21 und
-efined on input line 402.
-
-
-Package natbib Warning: Citation `7006388' on page 21 undefined on input line 4
-02.
-
-
-Package natbib Warning: Citation `6064510' on page 21 undefined on input line 4
-34.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 399--435
+Underfull \hbox (badness 10000) in paragraph at lines 400--436
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 399--435
+Underfull \hbox (badness 10000) in paragraph at lines 400--436
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 399--435
+Underfull \hbox (badness 10000) in paragraph at lines 400--436
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 399--435
+Underfull \hbox (badness 10000) in paragraph at lines 400--436
 
  []
 
-[21]
+[21] [22] [23] [24] [25] (./seminarReportFinal.bbl [26
 
-Package natbib Warning: Citation `7006388' on page 22 undefined on input line 4
-38.
 
-[22]
+] [27])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 512.
+ [28]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 512.
 
-Package natbib Warning: Citation `Lee:2015:PHB:2701126.2701228' on page 23 unde
-fined on input line 459.
-
-[23]
-
-Package natbib Warning: Citation `Andrus:2011:CVM:2043556.2043574' on page 24 u
-ndefined on input line 473.
-
-[24] [25] (./seminarReportFinal.bbl)
-
-Package natbib Warning: There were undefined citations.
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 511.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 511.
 (./seminarReportFinal.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 511.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 511.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 512.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 512.
 Package rerunfilecheck Info: File `seminarReportFinal.out' has not changed.
-(rerunfilecheck)             Checksum: 6404BC6EEF2572AA07679728B7B23D1C;1506.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 511.
+(rerunfilecheck)             Checksum: 0F260CCEFFC3ABA22BE57693F185C30B;1554.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 512.
  ) 
 Here is how much of TeX's memory you used:
- 7886 strings out of 495021
- 107869 string characters out of 6181345
- 190386 words of memory out of 5000000
- 10845 multiletter control sequences out of 15000+600000
+ 7970 strings out of 495021
+ 109585 string characters out of 6181345
+ 190947 words of memory out of 5000000
+ 10895 multiletter control sequences out of 15000+600000
  51687 words of font info for 119 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 36i,11n,45p,762b,418s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,11n,50p,762b,471s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/txfonts/rtxb.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/public/txfonts/rtxr.pfb></usr/share/texlive/texmf-dist/fonts/type1
@@ -1041,10 +985,10 @@ e/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/urw/times/utmri8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/zapfcha
 n/uzcmi8a.pfb>
-Output written on seminarReportFinal.pdf (25 pages, 255441 bytes).
+Output written on seminarReportFinal.pdf (28 pages, 263495 bytes).
 PDF statistics:
- 354 PDF objects out of 1000 (max. 8388607)
- 309 compressed objects within 4 object streams
- 106 named destinations out of 1000 (max. 500000)
- 163 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 415 PDF objects out of 1000 (max. 8388607)
+ 367 compressed objects within 4 object streams
+ 121 named destinations out of 1000 (max. 500000)
+ 171 words of extra memory for PDF output out of 10000 (max. 10000000)
 

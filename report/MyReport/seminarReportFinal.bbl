@@ -1,0 +1,231 @@
+%Merlin.mbs v4.21 2009-07-09.
+\begin{thebibliography}{11}%
+\makeatletter
+\providecommand \@ifxundefined [1]{%
+ \ifx #1\undefined \expandafter \@firstoftwo
+ \else \expandafter \@secondoftwo
+\fi
+}%
+\providecommand \@ifnum [1]{%
+ \ifnum #1\expandafter \@firstoftwo
+ \else \expandafter \@secondoftwo
+\fi
+}%
+\providecommand \natexlab [1]{#1}%
+\providecommand \enquote [1]{``#1''}%
+\providecommand \bibnamefont  [1]{#1}%
+\providecommand \bibfnamefont [1]{#1}%
+\providecommand \citenamefont [1]{#1}%
+\providecommand\href[0]{\@sanitize\@href}%
+\providecommand\@href[1]{\endgroup\@@startlink{#1}\endgroup\@@href}%
+\providecommand\@@href[1]{#1\@@endlink}%
+\providecommand \@sanitize [0]{\begingroup\catcode`\&12\catcode`\#12\relax}%
+\@ifxundefined \pdfoutput {\@firstoftwo}{%
+ \@ifnum{\z@=\pdfoutput}{\@firstoftwo}{\@secondoftwo}%
+}{%
+ \providecommand\@@startlink[1]{\leavevmode\special{html:<a href="#1">}}%
+ \providecommand\@@endlink[0]{\special{html:</a>}}%
+}{%
+ \providecommand\@@startlink[1]{%
+  \leavevmode
+  \pdfstartlink
+   attr{/Border[0 0 1 ]/H/I/C[0 1 1]}%
+   user{/Subtype/Link/A<</Type/Action/S/URI/URI(#1)>>}%
+  \relax
+ }%
+ \providecommand\@@endlink[0]{\pdfendlink}%
+}%
+\providecommand \url  [0]{\begingroup\@sanitize \@url }%
+\providecommand \@url [1]{\endgroup\@href {#1}{\urlprefix}}%
+\providecommand \urlprefix [0]{URL }%
+\providecommand \Eprint[0]{\href }%
+\@ifxundefined \urlstyle {%
+  \providecommand \doi [1]{doi:\discretionary{}{}{}#1}%
+}{%
+  \providecommand \doi [0]{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url }%
+}%
+\providecommand \doibase [0]{http://dx.doi.org/}%
+\providecommand \Doi[1]{\href{\doibase#1}}%
+\providecommand \urlhref[1]{\href{#1}}%
+\providecommand \bibAnnote [3]{%
+  \BibitemShut{#1}%
+  \begin{quotation}\noindent
+    \textsc{Key:}\ #2\\\textsc{Annotation:}\ #3%
+  \end{quotation}%
+}%
+\providecommand \bibAnnoteFile [2]{%
+  \IfFileExists{#2}{\bibAnnote {#1} {#2} {\input{#2}}}{}%
+}%
+\providecommand \typeout [0]{\immediate \write \m@ne }%
+\providecommand \selectlanguage [0]{\@gobble}%
+\providecommand \bibinfo [0]{\@secondoftwo}%
+\providecommand \bibfield [0]{\@secondoftwo}%
+\providecommand \translation [1]{[#1]}%
+\providecommand \BibitemOpen[0]{}%
+\providecommand \bibitemStop [0]{}%
+\providecommand \bibitemNoStop [0]{.\EOS\space}%
+\providecommand \EOS [0]{\spacefactor3000\relax}%
+\providecommand \BibitemShut [1]{\csname bibitem#1\endcsname}%
+%</preamble>
+\bibitem[{\citenamefont{Andrus}\ \emph{et~al.}(2011)\citenamefont{Andrus},
+  \citenamefont{Dall}, \citenamefont{Hof}, \citenamefont{Laadan},\ and\
+  \citenamefont{Nieh}}]{Andrus:2011:CVM:2043556.2043574}%
+  \BibitemOpen
+  \bibfield{author}{%
+  \bibinfo {author} {\bibnamefont{Andrus}, \bibfnamefont{Jeremy}}, \bibinfo
+  {author} {\bibfnamefont{Christoffer}\ \bibnamefont{Dall}}, \bibinfo {author}
+  {\bibfnamefont{Alexander~Van't}\ \bibnamefont{Hof}}, \bibinfo {author}
+  {\bibfnamefont{Oren}\ \bibnamefont{Laadan}},\ and\ \bibinfo {author}
+  {\bibfnamefont{Jason}\ \bibnamefont{Nieh}}}%
+  , \bibinfo {year} {2011},\ \enquote{\bibinfo {title} {Cells: A virtual mobile
+  smartphone architecture},}\ in\ \Doi{10.1145/2043556.2043574}{\emph{\bibinfo
+  {booktitle} {Proceedings of the Twenty-Third ACM Symposium on Operating
+  Systems Principles}}},\ \bibinfo {series and number} {SOSP '11}\ (\bibinfo
+  {publisher} {ACM},\ \bibinfo {address} {New York, NY, USA})\ pp.\ \bibinfo
+  {pages} {173--187}%
+  \bibAnnoteFile{NoStop}{Andrus:2011:CVM:2043556.2043574}%
+\bibitem[{\citenamefont{Barr}\ \emph{et~al.}(2010)\citenamefont{Barr},
+  \citenamefont{Bungale}, \citenamefont{Deasy}, \citenamefont{Gyuris},
+  \citenamefont{Hung}, \citenamefont{Newell}, \citenamefont{Tuch},\ and\
+  \citenamefont{Zoppis}}]{Barr:2010:VMV:1899928.1899945}%
+  \BibitemOpen
+  \bibfield{author}{%
+  \bibinfo {author} {\bibnamefont{Barr}, \bibfnamefont{Ken}}, \bibinfo {author}
+  {\bibfnamefont{Prashanth}\ \bibnamefont{Bungale}}, \bibinfo {author}
+  {\bibfnamefont{Stephen}\ \bibnamefont{Deasy}}, \bibinfo {author}
+  {\bibfnamefont{Viktor}\ \bibnamefont{Gyuris}}, \bibinfo {author}
+  {\bibfnamefont{Perry}\ \bibnamefont{Hung}}, \bibinfo {author}
+  {\bibfnamefont{Craig}\ \bibnamefont{Newell}}, \bibinfo {author}
+  {\bibfnamefont{Harvey}\ \bibnamefont{Tuch}},\ and\ \bibinfo {author}
+  {\bibfnamefont{Bruno}\ \bibnamefont{Zoppis}}}%
+  , \bibinfo {year} {2010}\ \bibinfo {month} {Dec.},\ \bibfield{title}{%
+  \enquote{\bibinfo {title} {The vmware mobile virtualization platform: Is that
+  a hypervisor in your pocket?}.}\ }%
+  \bibfield{journal}{%
+  \emph{\Doi{10.1145/1899928.1899945}{\bibinfo {journal} {SIGOPS Oper. Syst.
+  Rev.}}}\ }%
+  \textbf{\bibinfo {volume} {44}},\ \bibinfo {pages} {124--135}%
+  \bibAnnoteFile{NoStop}{Barr:2010:VMV:1899928.1899945}%
+\bibitem[{\citenamefont{Dall}\ and\ \citenamefont{Nieh}(2010)}]{KVM-for-ARM}%
+  \BibitemOpen
+  \bibfield{author}{%
+  \bibinfo {author} {\bibnamefont{Dall}, \bibfnamefont{Christoffer}},\ and\
+  \bibinfo {author} {\bibfnamefont{Jason}\ \bibnamefont{Nieh}}}%
+  , \bibinfo {year} {2010}\ \bibinfo {month} {July},\ \enquote{\bibinfo {title}
+  {Kvm for arm},}\ in\ \emph{\bibinfo {booktitle} {Proceedings of the Ottawa
+  Linux Symposium}},\ pp.\ \bibinfo {pages} {45--56}%
+  \bibAnnoteFile{NoStop}{KVM-for-ARM}%
+\bibitem[{\citenamefont{Dall}\ and\
+  \citenamefont{Nieh}(2014)}]{Dall:2014:KDI:2541940.2541946}%
+  \BibitemOpen
+  \bibfield{author}{%
+  \bibinfo {author} {\bibnamefont{Dall}, \bibfnamefont{Christoffer}},\ and\
+  \bibinfo {author} {\bibfnamefont{Jason}\ \bibnamefont{Nieh}}}%
+  , \bibinfo {year} {2014},\ \enquote{\bibinfo {title} {Kvm/arm: The design and
+  implementation of the linux arm hypervisor},}\ in\
+  \Doi{10.1145/2541940.2541946}{\emph{\bibinfo {booktitle} {Proceedings of the
+  19th International Conference on Architectural Support for Programming
+  Languages and Operating Systems}}},\ \bibinfo {series and number} {ASPLOS
+  '14}\ (\bibinfo {publisher} {ACM},\ \bibinfo {address} {New York, NY, USA})\
+  pp.\ \bibinfo {pages} {333--348}%
+  \bibAnnoteFile{NoStop}{Dall:2014:KDI:2541940.2541946}%
+\bibitem[{\citenamefont{Dong}\ \emph{et~al.}(2015)\citenamefont{Dong},
+  \citenamefont{Mao}, \citenamefont{Guan}, \citenamefont{Li},\ and\
+  \citenamefont{Chen}}]{7006388}%
+  \BibitemOpen
+  \bibfield{author}{%
+  \bibinfo {author} {\bibnamefont{Dong}, \bibfnamefont{YaoZu}}, \bibinfo
+  {author} {\bibfnamefont{JunJie}\ \bibnamefont{Mao}}, \bibinfo {author}
+  {\bibfnamefont{HaiBing}\ \bibnamefont{Guan}}, \bibinfo {author}
+  {\bibfnamefont{Jian}\ \bibnamefont{Li}},\ and\ \bibinfo {author}
+  {\bibfnamefont{Yu}~\bibnamefont{Chen}}}%
+  , \bibinfo {year} {2015}\ \bibinfo {month} {Jan},\ \bibfield{title}{%
+  \enquote{\bibinfo {title} {A virtualization solution for byod with dynamic
+  platform context switching},}\ }%
+  \bibfield{journal}{%
+  \emph{\Doi{10.1109/MM.2015.3}{\bibinfo {journal} {Micro, IEEE}}}\ }%
+  \textbf{\bibinfo {volume} {35}},\ \bibinfo {pages} {34--43}%
+  \bibAnnoteFile{NoStop}{7006388}%
+\bibitem[{\citenamefont{Heiser}(2011)}]{Heiser:2011:VES:2024724.2024925}%
+  \BibitemOpen
+  \bibfield{author}{%
+  \bibinfo {author} {\bibnamefont{Heiser}, \bibfnamefont{Gernot}}}%
+  , \bibinfo {year} {2011},\ \enquote{\bibinfo {title} {Virtualizing embedded
+  systems: Why bother?}.}\ in\ \Doi{10.1145/2024724.2024925}{\emph{\bibinfo
+  {booktitle} {Proceedings of the 48th Design Automation Conference}}},\
+  \bibinfo {series and number} {DAC '11}\ (\bibinfo {publisher} {ACM},\
+  \bibinfo {address} {New York, NY, USA})\ pp.\ \bibinfo {pages} {901--905}%
+  \bibAnnoteFile{NoStop}{Heiser:2011:VES:2024724.2024925}%
+\bibitem[{\citenamefont{Heiser}\ and\
+  \citenamefont{Leslie}(2010)}]{Heiser:2010:OMC:1851276.1851282}%
+  \BibitemOpen
+  \bibfield{author}{%
+  \bibinfo {author} {\bibnamefont{Heiser}, \bibfnamefont{Gernot}},\ and\
+  \bibinfo {author} {\bibfnamefont{Ben}\ \bibnamefont{Leslie}}}%
+  , \bibinfo {year} {2010},\ \enquote{\bibinfo {title} {The okl4 microvisor:
+  Convergence point of microkernels and hypervisors},}\ in\
+  \Doi{10.1145/1851276.1851282}{\emph{\bibinfo {booktitle} {Proceedings of the
+  First ACM Asia-pacific Workshop on Workshop on Systems}}},\ \bibinfo {series
+  and number} {APSys '10}\ (\bibinfo {publisher} {ACM},\ \bibinfo {address}
+  {New York, NY, USA})\ pp.\ \bibinfo {pages} {19--24}%
+  \bibAnnoteFile{NoStop}{Heiser:2010:OMC:1851276.1851282}%
+\bibitem[{\citenamefont{Lee}\ \emph{et~al.}(2015)\citenamefont{Lee},
+  \citenamefont{Lee},\ and\ \citenamefont{Eom}}]{Lee:2015:PHB:2701126.2701228}%
+  \BibitemOpen
+  \bibfield{author}{%
+  \bibinfo {author} {\bibnamefont{Lee}, \bibfnamefont{Kihong}}, \bibinfo
+  {author} {\bibfnamefont{Dongwoo}\ \bibnamefont{Lee}},\ and\ \bibinfo {author}
+  {\bibfnamefont{Young~Ik}\ \bibnamefont{Eom}}}%
+  , \bibinfo {year} {2015},\ \enquote{\bibinfo {title} {Power-efficient and
+  high-performance block i/o framework for mobile virtualization systems},}\
+  in\ \Doi{10.1145/2701126.2701228}{\emph{\bibinfo {booktitle} {Proceedings of
+  the 9th International Conference on Ubiquitous Information Management and
+  Communication}}},\ \bibinfo {series and number} {IMCOM '15}\ (\bibinfo
+  {publisher} {ACM},\ \bibinfo {address} {New York, NY, USA})\ pp.\ \bibinfo
+  {pages} {57:1--57:7}%
+  \bibAnnoteFile{NoStop}{Lee:2015:PHB:2701126.2701228}%
+\bibitem[{\citenamefont{Mittal}\ \emph{et~al.}(2013)\citenamefont{Mittal},
+  \citenamefont{Bansal}, \citenamefont{Bansal},\ and\
+  \citenamefont{Sethi}}]{Mittal:2013:EVE:2499368.2451163}%
+  \BibitemOpen
+  \bibfield{author}{%
+  \bibinfo {author} {\bibnamefont{Mittal}, \bibfnamefont{Aashish}}, \bibinfo
+  {author} {\bibfnamefont{Dushyant}\ \bibnamefont{Bansal}}, \bibinfo {author}
+  {\bibfnamefont{Sorav}\ \bibnamefont{Bansal}},\ and\ \bibinfo {author}
+  {\bibfnamefont{Varun}\ \bibnamefont{Sethi}}}%
+  , \bibinfo {year} {2013}\ \bibinfo {month} {Mar.},\ \bibfield{title}{%
+  \enquote{\bibinfo {title} {Efficient virtualization on embedded power
+  architecture\&\#174; platforms},}\ }%
+  \bibfield{journal}{%
+  \emph{\Doi{10.1145/2499368.2451163}{\bibinfo {journal} {SIGPLAN Not.}}}\ }%
+  \textbf{\bibinfo {volume} {48}},\ \bibinfo {pages} {445--458}%
+  \bibAnnoteFile{NoStop}{Mittal:2013:EVE:2499368.2451163}%
+\bibitem[{\citenamefont{Popek}\ and\
+  \citenamefont{Goldberg}(1974)}]{Popek:1974:FRV:361011.361073}%
+  \BibitemOpen
+  \bibfield{author}{%
+  \bibinfo {author} {\bibnamefont{Popek}, \bibfnamefont{Gerald~J.}},\ and\
+  \bibinfo {author} {\bibfnamefont{Robert~P.}\ \bibnamefont{Goldberg}}}%
+  , \bibinfo {year} {1974}\ \bibinfo {month} {Jul.},\ \bibfield{title}{%
+  \enquote{\bibinfo {title} {Formal requirements for virtualizable third
+  generation architectures},}\ }%
+  \bibfield{journal}{%
+  \emph{\Doi{10.1145/361011.361073}{\bibinfo {journal} {Commun. ACM}}}\ }%
+  \textbf{\bibinfo {volume} {17}},\ \bibinfo {pages} {412--421}%
+  \bibAnnoteFile{NoStop}{Popek:1974:FRV:361011.361073}%
+\bibitem[{\citenamefont{Xi}\ \emph{et~al.}(2011)\citenamefont{Xi},
+  \citenamefont{Wilson}, \citenamefont{Lu},\ and\
+  \citenamefont{Gill}}]{6064510}%
+  \BibitemOpen
+  \bibfield{author}{%
+  \bibinfo {author} {\bibnamefont{Xi}, \bibfnamefont{Sisu}}, \bibinfo {author}
+  {\bibfnamefont{J.}~\bibnamefont{Wilson}}, \bibinfo {author}
+  {\bibfnamefont{Chenyang}\ \bibnamefont{Lu}},\ and\ \bibinfo {author}
+  {\bibfnamefont{C.}~\bibnamefont{Gill}}}%
+  , \bibinfo {year} {2011}\ \bibinfo {month} {Oct},\ \enquote{\bibinfo {title}
+  {Rt-xen: Towards real-time hypervisor scheduling in xen},}\ in\
+  \emph{\bibinfo {booktitle} {Embedded Software (EMSOFT), 2011 Proceedings of
+  the International Conference on}},\ pp.\ \bibinfo {pages} {39--48}%
+  \bibAnnoteFile{NoStop}{6064510}%
+\end{thebibliography}%
