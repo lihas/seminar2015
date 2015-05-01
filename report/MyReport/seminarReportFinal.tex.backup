@@ -166,12 +166,8 @@ x86 comes with the standard 4-ring architecture and many registers are shared be
 \item \emph{\textmd{IRQ}} : This mode is used for handling low priority interrupts.
 \\
 \item \emph{\textmd{FIQ (Fast interrupt request) }} : This mode supports handling higher priority interrupts, and has its own set of 7 banked registers ( r8 - r14), and hence saving and restoring state is not required, while servicing an interrupt.
-These banked registers cannot load from memory, and there value persists between subsequent invocations of FIQ handler, due to only a single FIQ being supported.
 As compared to IRQ, FIQ is faster, and has higher priority. The pointer to its exceptions handler is always stored at the base of vector able, which is cached by processor, and hence
-lookup is much faster. For other interrupts the handler is present at vector-table-base-address+4*n, and therefore the lookup is slightly slower. In addition to this, the larger
-number of banked registers make FIQ faster. FIQ however is not as scalable as IRQ, as only one FIQ is supported, and for enabling multiple interrupts if additional lookup
-is done, inside the FIQ routine, it will make it slower, thus defeating the purpose of FIQ. FIQ is suitable only for interrupts that require less processing, if the handler is
-complex and requires, FIQ makes less sense. 
+lookup is much faster. For other interrupts the handler is present at vector-table-base-address+4*n, and therefore the lookup is slightly slower.
 \\
 \item \emph{\textmd{Abort }} : When data or instruction fetch is aborted, for example in the case of demand paging.
 \\
@@ -245,7 +241,7 @@ removed in ARMv8.
 \subsubsection{Unique challenges on x86 platform}
 
 \begin{enumerate}
-\item x86 supports a larger instruction set, and in in many cases has to support legacy instructions as well, these instructions need translation to newer instruction set, creating some overhead. ARM too in some cases needs translation but the problem is not as severe as in x86, and these translations are not as complex.
+\item x86 has supports a larger instruction set, and in in many cases has to support legacy instructions as well, these instructions need translation to newer instruction set, creating some overhead. ARM too in some cases needs translation but the problem is not as severe as in x86, and these translations are not as complex.
 
 \item x86 has deep pipelines, often going beyond 20 or 30. This leads to more overhead on a failed branch prediction as more stages need to be flushed.
 
@@ -263,7 +259,7 @@ Embedded systems encompass a big variety of processor architectures. Unlike desk
 Therefore a hypervisor which caters to all possible architectures is impractical to make, as subtle differences in architectures greatly impact VMM design. The definition of efficiently virtualizable platform, as given by Popek and Goldberg\cite{Popek:1974:FRV:361011.361073} leads to
  two broad categories of processors: ones that satisfy the constraint for efficient virtualization, i.e. for them the set of sensitive instructions is a subset of privileged instructions, 
  and the ones that do not satisfy this constraint. The ones that are efficiently virtualizable (eg. PowerArchitecture), are not without any limitations, and therefore a VMM must try to overcome these
- to run with lowest overheads. Processors that cannot be efficiently virtualized rely on either hardware extensions, or on some software techniques. The categories of
+ to run with lowest overheads. Processors that cannot be efficiently virtualized either rely on, either hardware extensions, or on some software techniques. The categories of
  virtualization solutions studied by me, in the course of this seminar, and the relation between them can be seen in figure~\ref{fig:papers}.
 \\
  \begin{figure}[ht]
@@ -276,7 +272,7 @@ Therefore a hypervisor which caters to all possible architectures is impractical
 
   \subsection{ Virtualizable platform }
   These platforms meet the Popek and Goldberg virtualization requirement. For them a trap and emulate style VMM is easy to construct.
-  Power Architecture is one such processor. The performance overhead on such a platform remains high, as all sensitive instructions trap to the hypervisor.
+  Power Architecture is one such processor. The performance overhead on such a platform remains high, as all semsitive instructions trap to hypervisor.
   This overhead is significant, specially in processor bound applications. To reduce overhead a dynamic binary translation scheme can be used, as presented in~\cite{Mittal:2013:EVE:2499368.2451163}.
   \\\\
   The authors of the paper observe that in Linux running on Power Architecture, most of the traps from sensitive instructions occur from a small set of these instructions, moreover 
@@ -287,13 +283,9 @@ Therefore a hypervisor which caters to all possible architectures is impractical
   copies contents of Machine State Register(MSR) into a general purpose register (GPR). This can be replaced by a load instruction which loads 
   the GPR with the memory location emulating MSR for the VM.}), or by a jump instruction to a translation cache (if the sensitive instruction cannot be emulated by a single instruction).
   In case the second instruction cannot be emulated by a single instruction, it becomes important to figure out two questions: 
-  
-  \begin{enumerate}
-  \renewcommand{\labelenumi}{(\roman{enumi})}
-   \item How will the jump take place ?,  ~~and
-   \item Where will the translation cache be located?
-  \end{enumerate}
-
+  \\\\How will the jump take place ?, and
+  \\
+  Where will the translation cache be located?\\\\
   To make a jump to translation cache, either a \texttt{bl}\footnote{a \texttt{bl} instruction, along with \texttt{blr} instruction is used in Power Architecture for calling a function, and returning from it } instruction can be used, or by \texttt{branch}
   instruction. The former can lead to corruption of link register\footnote{link register is used to store the return address during a function call}. For example, when the code to be patched is already a part of a
   function call, a new function call without saving the original content of the link register, will overwrite the original value. Also, it
@@ -301,7 +293,7 @@ Therefore a hypervisor which caters to all possible architectures is impractical
   The \texttt{branch} instruction seems as the obvious choice now, and is the one which is used to jump to translation cache. This instruction puts a constraint on the location
   of the translation cache, as it only allows to jump within $\pm 32mb$ of the program counter.
   To overcome this limitation translation cache is placed in data section of a process, by stealing a data page from the virtual address range of a process. For this, a page containing data of the process is selected,
-  its contents are backed up, and translation cache is placed there. To protect this stolen page, and to emulate access to this page, in case the process tries to read or write to
+  its contents are backed up, and translation cache is placed their. To protect this stolen page, and to emulate access to this page, in case the process tries to read or write to
   it, read and write permissions are revoked, and execute permission is set.
   When program tries to access this data location, a fault occurs, which is termed tracing fault. This binary patching scheme is only viable till these tracing
   faults are less in number, than the faults occurring due to the sensitive instruction.
@@ -324,7 +316,7 @@ Therefore a hypervisor which caters to all possible architectures is impractical
   ARM has come up with several hardware extensions to support virtualization. These include a new CPU mode, called the HYP mode for hypervisor execution,
   a newer interrupt controller to accelerate handling of interrupts in guest, called VGIC (Virtual Generic Interrupt Controller), stage 2 page tables (which are like EPT/NPT on x86\footnote{EPT: Extended Page Table, NPT: Nested Page Tables (aka Rapid Virtualization Indexing)}),
   and virtual timers and counters. 
-  These extensions can be leveraged to provide an efficient virtualization solution. Unlike x86, these extensions are not amenable to a commodity OS, as the HYP mode is significantly
+  These extensions can be leveraged to provide an efficient virtualization solution. Unlike x86, these extensions are not amenable to commodity OS, as the HYP mode is significantly
   different from SVC\footnote{mode in which kernel runs on ARM}(supervisor)  mode.
   The HYP mode is more suited to a bare metal hypervisor. As ARM processors come with a diverse set of specifications, supporting all of them would require
   writing a bare metal hypervisor for each. A novel solution suggested by Christoffer, et al. \cite{Dall:2014:KDI:2541940.2541946} is to use hosted hypervisor, in which
@@ -332,7 +324,7 @@ Therefore a hypervisor which caters to all possible architectures is impractical
   The HYP mode can then be used to place a small routine which will facilitate interaction between the guest OSes and the Linux host.
   Every interaction between guest and host will require two world switches, one from guest to HYP mode, and then from HYP mode to host OS, and same number of switches while going 
   from host to guest. The role of HYP mode in this case, when going from guest to host will be to save the state of guest and restore the state of host, while disabling second level address translation
-  (as the host is not required to run in a virtual environment, thus it will not require second level page tables). Similar will be the procedure when going from host to guest.
+  (as the host is not required to run in a virtual environment, thus it will not require second level page tables). similar will be the procedure when going from host to guest.
   The devices can be emulated either in the host kernel, or in the host user space. As the extensions include virtual timers and interrupts, these can be configured by the
   guest OSes directly, without the involvement of hypervisor, moreover VGIC allows ACK-ing and EOI-ing (explained earlier) without the involvement of hypervisor which
   significantly increases efficiency. Virtual timers and counters, cannot generate an interrupt directly to the guest OS, and that mechanism still has to emulated in the
@@ -360,7 +352,7 @@ Therefore a hypervisor which caters to all possible architectures is impractical
   of these, and the bits corresponding to domains must be set correctly.
   
   \paragraph{Micro kernels}
-  These form an interesting class of operating systems. The main goal of a micro kernel operating system is to keep the kernel code minimal. Most of the services provided by
+  These are an interesting class of operation systems. The main goal of a micro kernel operating system is to keep the kernel code minimal. Most of the services provided by
   a conventional operating system, is provided by user space programs (called servers). Micro kernels are supposed to be general enough to allow construction of
   arbitrary operating systems on top of them. As they have minimal amount of code that runs in privileged mode, also called trusted computing base or TCB, they are
   attractive for applications for which security is a major concern. This minimality also is suitable for embedded systems, as they already are constrained on
@@ -382,7 +374,7 @@ Therefore a hypervisor which caters to all possible architectures is impractical
   
   \paragraph{Linux containers (LXC)}
   This is an operating system level virtualization technique which allows multiple isolated Linux systems on a single Linux kernel. It abstracts VMs as name spaces, which
-  can be used to give a view of multiple isolated Linux systems running on a single host. These name spaces cannot be used to isolate access to all the devices found on an embedded system. To
+  can be used to give a view of multiples isolated Linux systems running on a single host. These name spaces cannot be used to isolate access to all the devices found on an embedded system. To
   use LXC for virtualization, there must be addition mechanisms to multiplex these devices. Cells\cite{Andrus:2011:CVM:2043556.2043574} is a virtualization framework
   which uses a concept of device name spaces to handle these devices. It is made to virtualize a modern smarphone running Android. It categorizes VMs as FVM (Foreground VM) and BVM (Background VMs).
   Of all the running VMs, only one is allowed to handle user interaction, and display content on screen.
@@ -428,8 +420,7 @@ LXC provides a clean and low overhead way to for Virtualization, but has the fol
   \\
   vNative allows multiple VMs to exist simultaneously, however only one VM executes at a particular time, remaining are present in a reactive state, i.e. they 
   don't consume CPU cycles, but are capable of reacting in case of an event. The VM in execution is called the FVM (Foreground VM), while others are called
-  BVMs (Background VMs). Only FVM interacts with the user. Memory is statically partitioned between guests, using Intel's IMR (Isolated Memory Regions). Secondary storage is
-  multiplexed using LBA remapping. 
+  BVMs (Background VMs). Only FVM interacts with the user. Memory is statically partitioned between guests, using Intel's IMR (Isolated Memory Regions).
   The multiplexing of devices between VMs is done by FLR (Function Level Resetting), which is a faster way to relinquish devices, and put them in a state which
   is suitable for another VM to use, than doing a conventional reset.
   \\\\
@@ -508,8 +499,8 @@ higher throughput than purely exit based I/O. The I/O interval can also be adjus
 
  
 \section{Conclusion}
-Virtualization on embedded systems, is witnessing a huge interest, the need to support heterogeneous set of applications, and security being the main driving factors.
-The use cases and environments in which they are supposed to work vary greatly from those of conventional desktop, and server platforms. The absence of a dominant standard,
+Virtualization on embedded systems, is witnessing huge interest, the need to support heterogeneous set of applications, and security being the main driving factors.
+The use cases and environments in which they are supposed to work wary greatly from those of conventional desktop, and server platforms. The absence of a dominant standard,
 and variety of operational constraints pose a challenge to development of applications. Linux has emerged as the most widely supported platform across all these
 architectures, and therefore provides a promising programming environment. The applicability of virtualization to safety critical embedded systems is yet to be seen, as these
 have stringent reliability requirements. With Qualcomm recently announcing server grade ARM cores, an attempt to encroach upon the space dominated by x86 can be clearly seen.
