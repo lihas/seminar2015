@@ -12,6 +12,12 @@
     urlcolor={blue!80!black}
 }
 
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\usepackage{hhline}
 \setcounter{secnumdepth}{4}
 \setcounter{tocdepth}{4}
 %opening
@@ -81,7 +87,7 @@ be a primary concern) .
  VM migration. Migration can also be used to put a part of cluster offline for maintenance, without disrupting the services, running on them. This might decrease the performance of these services, as the load on remaining part of cluster will increase, but is
  still much better than completely shutting down a service.
 \end{itemize}
-\newpage
+
 \subsection{Scope of this seminar}
 In the course of this seminar I studied the unique aspects of virtualization on embedded platforms, majorly focusing on the ARM architecture.
 I tried to explore the topic from three different viewpoints. 
@@ -108,6 +114,7 @@ I tried to explore the topic from three different viewpoints.
 %The contents for this section will be mainly from cs695 course I took in last semester.
 
 %\subsection{Motivations for virtualization on embedded platforms}
+\newpage
 \section{Virtualization on embedded platforms}
 \nocite{Heiser:2011:VES:2024724.2024925}
 Unlike x86 platform which generally runs multiple copies of same OS, the main focus of virtualization on embedded platforms is to support heterogenous set of applications. 
@@ -153,7 +160,7 @@ are the driving factors behind adoption of virtualization on embedded platforms.
 \subsection{Architectural differences from x86}
 Due to the different application domains, x86 and ARM differ significantly in their architecture. The following list summarizes the main differences.
 \\\\
-\textbf{1. CPU}
+\textbf{(I). CPU}
 \\\\
 Arm has several CPU modes, typically more than 4. These modes generally have their own set of registers, so switching from one mode to other incurs less overhead as saving and restoring registers isn't required. For example FIQ (Fast interrupt request) mode is used to service interrupts that require low latency. Since FIQ can use its own set of registers for interrupt processing, save-restore isn't required.
 x86 comes with the standard 4-ring architecture and many registers are shared between the modes.
@@ -185,7 +192,7 @@ In addition to these difference, they also differ in the instruction set support
 Some ARM cores also support Jazelle technology, which allows execution of Java bytecode in hardware, to speed up execution of Java programs.
 \\\\
 
-\textbf{2. MMU}\\
+\textbf{(II). MMU}\\
 
 On ARM the TLB entries can be aggregated together to refer to a larger section of memory than a page. The are four type of entries and these can co-exist on the same TLB.
 \begin{enumerate}
@@ -198,7 +205,7 @@ On ARM the TLB entries can be aggregated together to refer to a larger section o
 This reduces TLB pressure. 
 In x86 support for different page sizes, is supported by PSE (Page size extension), however this provides only two kinds of page sizes 4KiB sized normal pages, and larger pages of 4MiB, or 2MiB if the system has PAE enabled. The size of the larger page in case of systems with PAE is because, for supporting these PSE, the last level of page table is done away with, and when PAE is enabled the last level uses 9 bits instead of 10 (Non PAE virtual address: 10+10+12=32 bits, PAE virtual address: 2+9+9+12=32 bits), so these 9 bits plus the original 12 bits for offset give 21 bits for offset, which causes page size to be 2MiB. Thus this feature is richer in ARM.
 \\\\\\
-\textbf{3. Virtualization extensions}
+\textbf{(III). Virtualization extensions}
 \\\\
 \begin{enumerate}
 \item Hyp mode(CPU virtualization): This is a more privileged mode than system mode (in which OS kernels run). This mode can configure the conditions on which an OS will trap to Hyp mode. This mode is very different from the root mode on x86. A root has the same 4-ring architecture as non-root mode, thus a commodity OS can run in either mode without modification. Hyp mode doesn't offer the same view to an OS as visible on system and user modes on ARM. Moreover the register names and the page table format is different. Thus a commodity OS cannot run unmodified on Hyp mode.
@@ -212,11 +219,36 @@ In x86 support for different page sizes, is supported by PSE (Page size extensio
 \item VGIC (Virtual GIC (Generic Interrupt Controller)): VGIC on ARM extends GIC to enable guests to ACK, and EOI interrupts. This speeds up interrupt processing. VGIC however doesn't allow the guest to configure the interrupt controller, and to send IPI, this must be emulated by the hypervisor.
 \\\\\\
 
-\textbf{4. Interrupt handling}
+\textbf{(IV). Interrupt handling}
 \\\\
 ARM processors are required to EOI and ACK interrupts, while x86 only has to EOI interrupt. At the start of interrupt, address of interrupt is read from ACK register, which is a read only register. When the interrupt ends, the same address is written to EOI register, which is a write only register. Both of these registers are present in the Generic interrupt controller. In x86 the interrupt itself indicates the address, and hence no separate ACK is needed.
 \end{enumerate}
+All these differences are summarized in table~\ref{table:archdiff}.
+\begin{table}[ht]
+\centering
+\footnotesize
+\begin{tabular}{L{3cm}|L{3cm}|L{3cm}}
+	    & \textbf{ARM} & \textbf{x86}\\
+\hhline{=|=|=}
+\textbf{CPU} &&\\
+\hhline{=|=|=}
+CPU modes   & Larger number of modes of operation & 4 modes of operation having different privileges\\
+\hline
+Pipeline & shallower (3-4 stages)~\footnote{However there exist ARM CPUs like Cortex A-8 with pipelines as deep as 13 } & deeper (20-30 stages)\\
+\hline
+ISA	&	Thumb-2 (variable length:16bit, 32bit)\newline Thumb (16bit) \newline ARM instruction set& x86 (Variable length)\\
+\hhline{=|=|=}
+\textbf{MMU}&Larger number of page sizes supported& Smaller number of page size supported\\
+\hhline{=|=|=}
+\textbf{Virtual timers and counters}&Present in hardware&Virtualized using VMCS data structure\\
+\hhline{=|=|=}
 
+\textbf{Interrupts}&EOI+ACK required&only EOI required\\
+
+\end{tabular}
+\caption{Architectural differences between ARM and x86}
+\label{table:archdiff}
+\end{table}
 
 \subsection{Challenges on x86 and ARM platforms}
 To develop applications for any platform, a developer has to acquaint himself/herself with the challenges which are a characteristic of that platform. Next two sections enlist the
@@ -225,7 +257,7 @@ challenges unique to the x86, and ARM platforms.
 \subsubsection{Unique challenges on ARM platform}
 \begin{enumerate}
  
-\item ARM processor market is fragmented with varied combinations of hardware. The instruction set and architecture are provided by ARM ,however ARM doesn't fabricate chips itself and the licensees may choose to mix and match different hardware components around that core. ARM also lacks hardware discovery features like BIOS and PCI.
+\item ARM processor market is fragmented with varied combinations of hardware. The instruction set and architecture are provided by ARM ,however ARM doesn't fabricate chips itself and the licensees may choose to mix and match different hardware components around that core. ARM also lacks hardware discovery features like BIOS.
 \\These factors make porting of OS, across all ARM platforms difficult.
 
 \item ARM devices are resource constrained in terms of power and execution speed, and generally have to support a wide variety of sensors at once, like GPS, camera, etc.
@@ -253,11 +285,38 @@ removed in ARMv8.
 
 \item x86 has advantage of superior fabrication techniques, which lead to better efficiency, and more powerful processors than ARM, for eg. Intel recently introduced it's tri-gate transistors which reduce power consumption. ARM fabrication technology is still lagging behind, and is in general 2 or 3 generations behind than Intel.
 \end{enumerate}
-
-
+Some of these challenges faced on the two architectures are compared in~\ref{table:challenges}.
+\begin{table}
+\footnotesize
+\centering
+ \begin{tabular}{L{3cm}|c|c}
+  &\textbf{ARM}&\textbf{x86}\\
+  \hline\hline
+  \textbf{Availability of Standard Hardware}&No&Yes\\
+  \hline
+  \textbf{Resource constrained}&Yes&No\\
+  \hline
+  \textbf{Backwards compatibility}&Not maintained&Maintained\\
+  \hline
+  \textbf{H/W complexity}&Low&High\\
+  \hline
+  \textbf{Fabrication technique}&Inferior&Superior\\
+  
+ \end{tabular}
+\caption{Comparison of challenges faced on ARM and x86 platform}
+\label{table:challenges}
+\end{table}
+\subsection{Intersection of x86 and embedded systems}
+Despite their orthogonal nature, these can sometimes be seen as having a role reversal, and at other times sharing a symbiotic relationship.
+A system built around an x86 processor, often has smaller subsystems which are an an embedded system in their own right. The controller card on a hard drive, peripheral interfacing units,
+etc. are examples of such systems. CUPP computing, a US based company recently rolled out PunkThis module, which allows a user to seamlessly switch between Android, running on ARM
+and an x86 operating system. Both these systems exist on the same device, and while the former provides a longer battery life, the latter offers processing prowess.
+\\
+Intel Quark , is an x86 based System on a chip (SOC) which is intended to be run on embedded systems. Qualcomm on the other hand has plans for server grade ARM processors, which
+will provide a low power alternative to x86 based processors. These developments, though not common now, may change our notions of these systems in the future.
 %\section{Classification of virtualization solutions for different devices on a mobile phone}
 %This section will have a table of devices in a mobile phone, like CPU, camera, etc. and the way to virtualize them.
-
+\newpage
 \section{Virtualization solutions}
 Embedded systems encompass a big variety of processor architectures. Unlike desktop, and server platforms, there is no dominant architecture. 
 Therefore a hypervisor which caters to all possible architectures is impractical to make, as subtle differences in architectures greatly impact VMM design. The definition of efficiently virtualizable platform, as given by Popek and Goldberg\cite{Popek:1974:FRV:361011.361073} leads to
@@ -368,6 +427,7 @@ Therefore a hypervisor which caters to all possible architectures is impractical
   a hypervisor, and therefore they must be modified to support the primitives that a hyper visor exports to VMs.
   Some of the differences are:
   \begin{enumerate}
+  \renewcommand{\labelenumi}{(\roman{enumi})}
   \item Micro kernels abstract execution time as threads, while hypervisors abstract it as vCPU(s).
   \item Hypervisor abstracts memory by emulating a virtual MMU, micro kernels on the other hand provide this abstraction in the form of address spaces.
   \item A hypervisor exports interfaces to hardware devices to the guest OSes, while the drivers reside inside hypervisor. In a micro kernels drivers reside in user space. Xen
@@ -388,6 +448,7 @@ Therefore a hypervisor which caters to all possible architectures is impractical
   Of all the running VMs, only one is allowed to handle user interaction, and display content on screen.
   \\Device name space is a method to make the devices and other components of a system which cannot be multiplexed using LXC, aware of name spaces. This can be done in four ways:
   \begin{enumerate}
+  \renewcommand{\labelenumi}{(\roman{enumi})}
    \item Writing a wrapper around a driver that is aware of name spaces. Graphics subsystem can be virtulized in this way. The wrapper driver will ensure
    that when FVM tries to write to Frame buffer, it is rendered on screen, while When a BVM  tries to write, all writes go to another buffer. The contents of this buffer
    is used to render display once BVM makes a switch to foreground.
@@ -402,6 +463,7 @@ Rest of the components, like memory, secondary storage, and CPU can be multiplex
 LXC provides a clean and low overhead way to for Virtualization, but has the following drawbacks.
   
   \begin{enumerate}
+  \renewcommand{\labelenumi}{(\roman{enumi})}
    \item Security is limited by the security of the kernel, as for all containers the kernel remains the same.
    \item Cannot host applications from different operating systems simultaneously.
   \end{enumerate}
@@ -444,7 +506,7 @@ LXC provides a clean and low overhead way to for Virtualization, but has the fol
   background remain reactive in both the cases.
   \\\\
   Other special purpose hypervisors include the ones that are made to support an RTOS, along with a conventional OS. One example of such a hypervisor is RT-XEN\cite{6064510}.
- 
+ \newpage
  \section{Salient aspects of virtualizing a smart phone}
  Apart from the constraints of an embedded systems, as discussed previously, there are several factors such as how a user interacts with a mobile phone can affect the development.
  For example in a mobile phone under certain usage scenarios it is feasible to allocate all devices to one VM exclusively as is done by vNative\cite{7006388}. This
@@ -495,6 +557,7 @@ higher throughput than purely exit based I/O. The I/O interval can also be adjus
  happens. Modern OSes directly map a part of virtual space of a process to frame buffer. This allows applications to render contents directly. In such a scenario, the mechanism
  to manage graphics when a VM switch occurs becomes complicated, and entails the following.
  \begin{enumerate}
+ \renewcommand{\labelenumi}{(\roman{enumi})}
   \item Screen memory remapping: \\
   The page table entries of processes, in the FVM which have frame buffer mapped to their address space are modified to point to a background buffer. Similar remapping
   is done for process in BVM which is coming to foreground. They must now map to the frame buffer of the screen.
@@ -505,8 +568,8 @@ higher throughput than purely exit based I/O. The I/O interval can also be adjus
   \item GPU coordination: \\
   Notify GPU of the switch that just happened.
  \end{enumerate}
+\newpage
 
- 
 \section{Conclusion}
 Virtualization on embedded systems, is witnessing a huge interest, the need to support heterogeneous set of applications, and security being the main driving factors.
 The use cases and environments in which they are supposed to work vary greatly from those of conventional desktop, and server platforms. The absence of a dominant standard,

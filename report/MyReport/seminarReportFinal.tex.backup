@@ -12,6 +12,12 @@
     urlcolor={blue!80!black}
 }
 
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\usepackage{hhline}
 \setcounter{secnumdepth}{4}
 \setcounter{tocdepth}{4}
 %opening
@@ -81,7 +87,7 @@ be a primary concern) .
  VM migration. Migration can also be used to put a part of cluster offline for maintenance, without disrupting the services, running on them. This might decrease the performance of these services, as the load on remaining part of cluster will increase, but is
  still much better than completely shutting down a service.
 \end{itemize}
-\newpage
+
 \subsection{Scope of this seminar}
 In the course of this seminar I studied the unique aspects of virtualization on embedded platforms, majorly focusing on the ARM architecture.
 I tried to explore the topic from three different viewpoints. 
@@ -108,6 +114,7 @@ I tried to explore the topic from three different viewpoints.
 %The contents for this section will be mainly from cs695 course I took in last semester.
 
 %\subsection{Motivations for virtualization on embedded platforms}
+\newpage
 \section{Virtualization on embedded platforms}
 \nocite{Heiser:2011:VES:2024724.2024925}
 Unlike x86 platform which generally runs multiple copies of same OS, the main focus of virtualization on embedded platforms is to support heterogenous set of applications. 
@@ -153,7 +160,7 @@ are the driving factors behind adoption of virtualization on embedded platforms.
 \subsection{Architectural differences from x86}
 Due to the different application domains, x86 and ARM differ significantly in their architecture. The following list summarizes the main differences.
 \\\\
-\textbf{1. CPU}
+\textbf{(I). CPU}
 \\\\
 Arm has several CPU modes, typically more than 4. These modes generally have their own set of registers, so switching from one mode to other incurs less overhead as saving and restoring registers isn't required. For example FIQ (Fast interrupt request) mode is used to service interrupts that require low latency. Since FIQ can use its own set of registers for interrupt processing, save-restore isn't required.
 x86 comes with the standard 4-ring architecture and many registers are shared between the modes.
@@ -166,8 +173,12 @@ x86 comes with the standard 4-ring architecture and many registers are shared be
 \item \emph{\textmd{IRQ}} : This mode is used for handling low priority interrupts.
 \\
 \item \emph{\textmd{FIQ (Fast interrupt request) }} : This mode supports handling higher priority interrupts, and has its own set of 7 banked registers ( r8 - r14), and hence saving and restoring state is not required, while servicing an interrupt.
+These banked registers cannot load from memory, and there value persists between subsequent invocations of FIQ handler, due to only a single FIQ being supported.
 As compared to IRQ, FIQ is faster, and has higher priority. The pointer to its exceptions handler is always stored at the base of vector able, which is cached by processor, and hence
-lookup is much faster. For other interrupts the handler is present at vector-table-base-address+4*n, and therefore the lookup is slightly slower.
+lookup is much faster. For other interrupts the handler is present at vector-table-base-address+4*n, and therefore the lookup is slightly slower. In addition to this, the larger
+number of banked registers make FIQ faster. FIQ however is not as scalable as IRQ, as only one FIQ is supported, and for enabling multiple interrupts if additional lookup
+is done, inside the FIQ routine, it will make it slower, thus defeating the purpose of FIQ. FIQ is suitable only for interrupts that require less processing, if the handler is
+complex and requires, FIQ makes less sense. 
 \\
 \item \emph{\textmd{Abort }} : When data or instruction fetch is aborted, for example in the case of demand paging.
 \\
@@ -181,7 +192,7 @@ In addition to these difference, they also differ in the instruction set support
 Some ARM cores also support Jazelle technology, which allows execution of Java bytecode in hardware, to speed up execution of Java programs.
 \\\\
 
-\textbf{2. MMU}\\
+\textbf{(II). MMU}\\
 
 On ARM the TLB entries can be aggregated together to refer to a larger section of memory than a page. The are four type of entries and these can co-exist on the same TLB.
 \begin{enumerate}
@@ -194,7 +205,7 @@ On ARM the TLB entries can be aggregated together to refer to a larger section o
 This reduces TLB pressure. 
 In x86 support for different page sizes, is supported by PSE (Page size extension), however this provides only two kinds of page sizes 4KiB sized normal pages, and larger pages of 4MiB, or 2MiB if the system has PAE enabled. The size of the larger page in case of systems with PAE is because, for supporting these PSE, the last level of page table is done away with, and when PAE is enabled the last level uses 9 bits instead of 10 (Non PAE virtual address: 10+10+12=32 bits, PAE virtual address: 2+9+9+12=32 bits), so these 9 bits plus the original 12 bits for offset give 21 bits for offset, which causes page size to be 2MiB. Thus this feature is richer in ARM.
 \\\\\\
-\textbf{3. Virtualization extensions}
+\textbf{(III). Virtualization extensions}
 \\\\
 \begin{enumerate}
 \item Hyp mode(CPU virtualization): This is a more privileged mode than system mode (in which OS kernels run). This mode can configure the conditions on which an OS will trap to Hyp mode. This mode is very different from the root mode on x86. A root has the same 4-ring architecture as non-root mode, thus a commodity OS can run in either mode without modification. Hyp mode doesn't offer the same view to an OS as visible on system and user modes on ARM. Moreover the register names and the page table format is different. Thus a commodity OS cannot run unmodified on Hyp mode.
@@ -208,11 +219,36 @@ In x86 support for different page sizes, is supported by PSE (Page size extensio
 \item VGIC (Virtual GIC (Generic Interrupt Controller)): VGIC on ARM extends GIC to enable guests to ACK, and EOI interrupts. This speeds up interrupt processing. VGIC however doesn't allow the guest to configure the interrupt controller, and to send IPI, this must be emulated by the hypervisor.
 \\\\\\
 
-\textbf{4. Interrupt handling}
+\textbf{(IV). Interrupt handling}
 \\\\
 ARM processors are required to EOI and ACK interrupts, while x86 only has to EOI interrupt. At the start of interrupt, address of interrupt is read from ACK register, which is a read only register. When the interrupt ends, the same address is written to EOI register, which is a write only register. Both of these registers are present in the Generic interrupt controller. In x86 the interrupt itself indicates the address, and hence no separate ACK is needed.
 \end{enumerate}
+All these differences are summarized in table~\ref{table:archdiff}.
+\begin{table}[ht]
+\centering
+\footnotesize
+\begin{tabular}{L{3cm}|L{3cm}|L{3cm}}
+	    & \textbf{ARM} & \textbf{x86}\\
+\hhline{=|=|=}
+\textbf{CPU} &&\\
+\hhline{=|=|=}
+CPU modes   & Larger number of modes of operation & 4 modes of operation having different privileges\\
+\hline
+Pipeline & shallower (3-4 stages)~\footnote{However there exist ARM CPUs like Cortex A-8 with pipelines as deep as 13 } & deeper (20-30 stages)\\
+\hline
+ISA	&	Thumb-2 (variable length:16bit, 32bit)\newline Thumb (16bit) \newline ARM instruction set& x86 (Variable length)\\
+\hhline{=|=|=}
+\textbf{MMU}&Larger number of page sizes supported& Smaller number of page size supported\\
+\hhline{=|=|=}
+\textbf{Virtual timers and counters}&Present in hardware&Virtualized using VMCS data structure\\
+\hhline{=|=|=}
 
+\textbf{Interrupts}&EOI+ACK required&only EOI required\\
+
+\end{tabular}
+\caption{Architectural differences between ARM and x86}
+\label{table:archdiff}
+\end{table}
 
 \subsection{Challenges on x86 and ARM platforms}
 To develop applications for any platform, a developer has to acquaint himself/herself with the challenges which are a characteristic of that platform. Next two sections enlist the
@@ -221,7 +257,7 @@ challenges unique to the x86, and ARM platforms.
 \subsubsection{Unique challenges on ARM platform}
 \begin{enumerate}
  
-\item ARM processor market is fragmented with varied combinations of hardware. The instruction set and architecture are provided by ARM ,however ARM doesn't fabricate chips itself and the licensees may choose to mix and match different hardware components around that core. ARM also lacks hardware discovery features like BIOS and PCI.
+\item ARM processor market is fragmented with varied combinations of hardware. The instruction set and architecture are provided by ARM ,however ARM doesn't fabricate chips itself and the licensees may choose to mix and match different hardware components around that core. ARM also lacks hardware discovery features like BIOS.
 \\These factors make porting of OS, across all ARM platforms difficult.
 
 \item ARM devices are resource constrained in terms of power and execution speed, and generally have to support a wide variety of sensors at once, like GPS, camera, etc.
@@ -241,7 +277,7 @@ removed in ARMv8.
 \subsubsection{Unique challenges on x86 platform}
 
 \begin{enumerate}
-\item x86 has supports a larger instruction set, and in in many cases has to support legacy instructions as well, these instructions need translation to newer instruction set, creating some overhead. ARM too in some cases needs translation but the problem is not as severe as in x86, and these translations are not as complex.
+\item x86 supports a larger instruction set, and in in many cases has to support legacy instructions as well, these instructions need translation to newer instruction set, creating some overhead. ARM too in some cases needs translation but the problem is not as severe as in x86, and these translations are not as complex.
 
 \item x86 has deep pipelines, often going beyond 20 or 30. This leads to more overhead on a failed branch prediction as more stages need to be flushed.
 
@@ -249,17 +285,43 @@ removed in ARMv8.
 
 \item x86 has advantage of superior fabrication techniques, which lead to better efficiency, and more powerful processors than ARM, for eg. Intel recently introduced it's tri-gate transistors which reduce power consumption. ARM fabrication technology is still lagging behind, and is in general 2 or 3 generations behind than Intel.
 \end{enumerate}
-
-
+Some of these challenges faced on the two architectures are compared in~\ref{table:challenges}.
+\begin{table}
+\footnotesize
+\centering
+ \begin{tabular}{L{3cm}|c|c}
+  &\textbf{ARM}&\textbf{x86}\\
+  \hline\hline
+  \textbf{Availability of Standard Hardware}&No&Yes\\
+  \hline
+  \textbf{Resource constrained}&Yes&No\\
+  \hline
+  \textbf{Backwards compatibility}&Not maintained&Maintained\\
+  \hline
+  \textbf{H/W complexity}&Low&High\\
+  \hline
+  \textbf{Fabrication technique}&Inferior&Superior\\
+  
+ \end{tabular}
+\caption{Comparison of challenges faced on ARM and x86 platform}
+\label{table:challenges}
+\end{table}
+\subsection{Intersection of x86 and embedded systems}
+Despite their orthogonal nature, these can sometimes be seen as having a role reversal, and at other times sharing a symbiotic relationship.
+A system built around an x86 processor, often has smaller subsystems which are an an embedded system in their own right. The controller card on a hard drive, peripheral interfacing units,
+etc. are examples of such systems. CUPP computing, a US based company recently rolled out PunkThis module, which allows users to seamlessly switch between Android, running on ARM
+and an x86 operating system. Both these systems exist on the same device, and while the former provides a longer battery life, the latter offers processing prowess.
+\\
+Intel Quark , is an x86 based SOC\footnote{SOC:System On a Chip}
 %\section{Classification of virtualization solutions for different devices on a mobile phone}
 %This section will have a table of devices in a mobile phone, like CPU, camera, etc. and the way to virtualize them.
-
+\newpage
 \section{Virtualization solutions}
 Embedded systems encompass a big variety of processor architectures. Unlike desktop, and server platforms, there is no dominant architecture. 
 Therefore a hypervisor which caters to all possible architectures is impractical to make, as subtle differences in architectures greatly impact VMM design. The definition of efficiently virtualizable platform, as given by Popek and Goldberg\cite{Popek:1974:FRV:361011.361073} leads to
  two broad categories of processors: ones that satisfy the constraint for efficient virtualization, i.e. for them the set of sensitive instructions is a subset of privileged instructions, 
  and the ones that do not satisfy this constraint. The ones that are efficiently virtualizable (eg. PowerArchitecture), are not without any limitations, and therefore a VMM must try to overcome these
- to run with lowest overheads. Processors that cannot be efficiently virtualized either rely on, either hardware extensions, or on some software techniques. The categories of
+ to run with lowest overheads. Processors that cannot be efficiently virtualized rely on either hardware extensions, or on some software techniques. The categories of
  virtualization solutions studied by me, in the course of this seminar, and the relation between them can be seen in figure~\ref{fig:papers}.
 \\
  \begin{figure}[ht]
@@ -272,7 +334,7 @@ Therefore a hypervisor which caters to all possible architectures is impractical
 
   \subsection{ Virtualizable platform }
   These platforms meet the Popek and Goldberg virtualization requirement. For them a trap and emulate style VMM is easy to construct.
-  Power Architecture is one such processor. The performance overhead on such a platform remains high, as all semsitive instructions trap to hypervisor.
+  Power Architecture is one such processor. The performance overhead on such a platform remains high, as all sensitive instructions trap to the hypervisor.
   This overhead is significant, specially in processor bound applications. To reduce overhead a dynamic binary translation scheme can be used, as presented in~\cite{Mittal:2013:EVE:2499368.2451163}.
   \\\\
   The authors of the paper observe that in Linux running on Power Architecture, most of the traps from sensitive instructions occur from a small set of these instructions, moreover 
@@ -283,9 +345,13 @@ Therefore a hypervisor which caters to all possible architectures is impractical
   copies contents of Machine State Register(MSR) into a general purpose register (GPR). This can be replaced by a load instruction which loads 
   the GPR with the memory location emulating MSR for the VM.}), or by a jump instruction to a translation cache (if the sensitive instruction cannot be emulated by a single instruction).
   In case the second instruction cannot be emulated by a single instruction, it becomes important to figure out two questions: 
-  \\\\How will the jump take place ?, and
-  \\
-  Where will the translation cache be located?\\\\
+  
+  \begin{enumerate}
+  \renewcommand{\labelenumi}{(\roman{enumi})}
+   \item How will the jump take place ?,  ~~and
+   \item Where will the translation cache be located?
+  \end{enumerate}
+
   To make a jump to translation cache, either a \texttt{bl}\footnote{a \texttt{bl} instruction, along with \texttt{blr} instruction is used in Power Architecture for calling a function, and returning from it } instruction can be used, or by \texttt{branch}
   instruction. The former can lead to corruption of link register\footnote{link register is used to store the return address during a function call}. For example, when the code to be patched is already a part of a
   function call, a new function call without saving the original content of the link register, will overwrite the original value. Also, it
@@ -293,7 +359,7 @@ Therefore a hypervisor which caters to all possible architectures is impractical
   The \texttt{branch} instruction seems as the obvious choice now, and is the one which is used to jump to translation cache. This instruction puts a constraint on the location
   of the translation cache, as it only allows to jump within $\pm 32mb$ of the program counter.
   To overcome this limitation translation cache is placed in data section of a process, by stealing a data page from the virtual address range of a process. For this, a page containing data of the process is selected,
-  its contents are backed up, and translation cache is placed their. To protect this stolen page, and to emulate access to this page, in case the process tries to read or write to
+  its contents are backed up, and translation cache is placed there. To protect this stolen page, and to emulate access to this page, in case the process tries to read or write to
   it, read and write permissions are revoked, and execute permission is set.
   When program tries to access this data location, a fault occurs, which is termed tracing fault. This binary patching scheme is only viable till these tracing
   faults are less in number, than the faults occurring due to the sensitive instruction.
@@ -316,7 +382,7 @@ Therefore a hypervisor which caters to all possible architectures is impractical
   ARM has come up with several hardware extensions to support virtualization. These include a new CPU mode, called the HYP mode for hypervisor execution,
   a newer interrupt controller to accelerate handling of interrupts in guest, called VGIC (Virtual Generic Interrupt Controller), stage 2 page tables (which are like EPT/NPT on x86\footnote{EPT: Extended Page Table, NPT: Nested Page Tables (aka Rapid Virtualization Indexing)}),
   and virtual timers and counters. 
-  These extensions can be leveraged to provide an efficient virtualization solution. Unlike x86, these extensions are not amenable to commodity OS, as the HYP mode is significantly
+  These extensions can be leveraged to provide an efficient virtualization solution. Unlike x86, these extensions are not amenable to a commodity OS, as the HYP mode is significantly
   different from SVC\footnote{mode in which kernel runs on ARM}(supervisor)  mode.
   The HYP mode is more suited to a bare metal hypervisor. As ARM processors come with a diverse set of specifications, supporting all of them would require
   writing a bare metal hypervisor for each. A novel solution suggested by Christoffer, et al. \cite{Dall:2014:KDI:2541940.2541946} is to use hosted hypervisor, in which
@@ -324,7 +390,7 @@ Therefore a hypervisor which caters to all possible architectures is impractical
   The HYP mode can then be used to place a small routine which will facilitate interaction between the guest OSes and the Linux host.
   Every interaction between guest and host will require two world switches, one from guest to HYP mode, and then from HYP mode to host OS, and same number of switches while going 
   from host to guest. The role of HYP mode in this case, when going from guest to host will be to save the state of guest and restore the state of host, while disabling second level address translation
-  (as the host is not required to run in a virtual environment, thus it will not require second level page tables). similar will be the procedure when going from host to guest.
+  (as the host is not required to run in a virtual environment, thus it will not require second level page tables). Similar will be the procedure when going from host to guest.
   The devices can be emulated either in the host kernel, or in the host user space. As the extensions include virtual timers and interrupts, these can be configured by the
   guest OSes directly, without the involvement of hypervisor, moreover VGIC allows ACK-ing and EOI-ing (explained earlier) without the involvement of hypervisor which
   significantly increases efficiency. Virtual timers and counters, cannot generate an interrupt directly to the guest OS, and that mechanism still has to emulated in the
@@ -352,7 +418,7 @@ Therefore a hypervisor which caters to all possible architectures is impractical
   of these, and the bits corresponding to domains must be set correctly.
   
   \paragraph{Micro kernels}
-  These are an interesting class of operation systems. The main goal of a micro kernel operating system is to keep the kernel code minimal. Most of the services provided by
+  These form an interesting class of operating systems. The main goal of a micro kernel operating system is to keep the kernel code minimal. Most of the services provided by
   a conventional operating system, is provided by user space programs (called servers). Micro kernels are supposed to be general enough to allow construction of
   arbitrary operating systems on top of them. As they have minimal amount of code that runs in privileged mode, also called trusted computing base or TCB, they are
   attractive for applications for which security is a major concern. This minimality also is suitable for embedded systems, as they already are constrained on
@@ -360,6 +426,7 @@ Therefore a hypervisor which caters to all possible architectures is impractical
   a hypervisor, and therefore they must be modified to support the primitives that a hyper visor exports to VMs.
   Some of the differences are:
   \begin{enumerate}
+  \renewcommand{\labelenumi}{(\roman{enumi})}
   \item Micro kernels abstract execution time as threads, while hypervisors abstract it as vCPU(s).
   \item Hypervisor abstracts memory by emulating a virtual MMU, micro kernels on the other hand provide this abstraction in the form of address spaces.
   \item A hypervisor exports interfaces to hardware devices to the guest OSes, while the drivers reside inside hypervisor. In a micro kernels drivers reside in user space. Xen
@@ -374,12 +441,13 @@ Therefore a hypervisor which caters to all possible architectures is impractical
   
   \paragraph{Linux containers (LXC)}
   This is an operating system level virtualization technique which allows multiple isolated Linux systems on a single Linux kernel. It abstracts VMs as name spaces, which
-  can be used to give a view of multiples isolated Linux systems running on a single host. These name spaces cannot be used to isolate access to all the devices found on an embedded system. To
+  can be used to give a view of multiple isolated Linux systems running on a single host. These name spaces cannot be used to isolate access to all the devices found on an embedded system. To
   use LXC for virtualization, there must be addition mechanisms to multiplex these devices. Cells\cite{Andrus:2011:CVM:2043556.2043574} is a virtualization framework
   which uses a concept of device name spaces to handle these devices. It is made to virtualize a modern smarphone running Android. It categorizes VMs as FVM (Foreground VM) and BVM (Background VMs).
   Of all the running VMs, only one is allowed to handle user interaction, and display content on screen.
   \\Device name space is a method to make the devices and other components of a system which cannot be multiplexed using LXC, aware of name spaces. This can be done in four ways:
   \begin{enumerate}
+  \renewcommand{\labelenumi}{(\roman{enumi})}
    \item Writing a wrapper around a driver that is aware of name spaces. Graphics subsystem can be virtulized in this way. The wrapper driver will ensure
    that when FVM tries to write to Frame buffer, it is rendered on screen, while When a BVM  tries to write, all writes go to another buffer. The contents of this buffer
    is used to render display once BVM makes a switch to foreground.
@@ -394,6 +462,7 @@ Rest of the components, like memory, secondary storage, and CPU can be multiplex
 LXC provides a clean and low overhead way to for Virtualization, but has the following drawbacks.
   
   \begin{enumerate}
+  \renewcommand{\labelenumi}{(\roman{enumi})}
    \item Security is limited by the security of the kernel, as for all containers the kernel remains the same.
    \item Cannot host applications from different operating systems simultaneously.
   \end{enumerate}
@@ -420,7 +489,8 @@ LXC provides a clean and low overhead way to for Virtualization, but has the fol
   \\
   vNative allows multiple VMs to exist simultaneously, however only one VM executes at a particular time, remaining are present in a reactive state, i.e. they 
   don't consume CPU cycles, but are capable of reacting in case of an event. The VM in execution is called the FVM (Foreground VM), while others are called
-  BVMs (Background VMs). Only FVM interacts with the user. Memory is statically partitioned between guests, using Intel's IMR (Isolated Memory Regions).
+  BVMs (Background VMs). Only FVM interacts with the user. Memory is statically partitioned between guests, using Intel's IMR (Isolated Memory Regions). Secondary storage is
+  multiplexed using LBA remapping. 
   The multiplexing of devices between VMs is done by FLR (Function Level Resetting), which is a faster way to relinquish devices, and put them in a state which
   is suitable for another VM to use, than doing a conventional reset.
   \\\\
@@ -435,7 +505,7 @@ LXC provides a clean and low overhead way to for Virtualization, but has the fol
   background remain reactive in both the cases.
   \\\\
   Other special purpose hypervisors include the ones that are made to support an RTOS, along with a conventional OS. One example of such a hypervisor is RT-XEN\cite{6064510}.
- 
+ \newpage
  \section{Salient aspects of virtualizing a smart phone}
  Apart from the constraints of an embedded systems, as discussed previously, there are several factors such as how a user interacts with a mobile phone can affect the development.
  For example in a mobile phone under certain usage scenarios it is feasible to allocate all devices to one VM exclusively as is done by vNative\cite{7006388}. This
@@ -486,6 +556,7 @@ higher throughput than purely exit based I/O. The I/O interval can also be adjus
  happens. Modern OSes directly map a part of virtual space of a process to frame buffer. This allows applications to render contents directly. In such a scenario, the mechanism
  to manage graphics when a VM switch occurs becomes complicated, and entails the following.
  \begin{enumerate}
+ \renewcommand{\labelenumi}{(\roman{enumi})}
   \item Screen memory remapping: \\
   The page table entries of processes, in the FVM which have frame buffer mapped to their address space are modified to point to a background buffer. Similar remapping
   is done for process in BVM which is coming to foreground. They must now map to the frame buffer of the screen.
@@ -496,11 +567,11 @@ higher throughput than purely exit based I/O. The I/O interval can also be adjus
   \item GPU coordination: \\
   Notify GPU of the switch that just happened.
  \end{enumerate}
+\newpage
 
- 
 \section{Conclusion}
-Virtualization on embedded systems, is witnessing huge interest, the need to support heterogeneous set of applications, and security being the main driving factors.
-The use cases and environments in which they are supposed to work wary greatly from those of conventional desktop, and server platforms. The absence of a dominant standard,
+Virtualization on embedded systems, is witnessing a huge interest, the need to support heterogeneous set of applications, and security being the main driving factors.
+The use cases and environments in which they are supposed to work vary greatly from those of conventional desktop, and server platforms. The absence of a dominant standard,
 and variety of operational constraints pose a challenge to development of applications. Linux has emerged as the most widely supported platform across all these
 architectures, and therefore provides a promising programming environment. The applicability of virtualization to safety critical embedded systems is yet to be seen, as these
 have stringent reliability requirements. With Qualcomm recently announcing server grade ARM cores, an attempt to encroach upon the space dominated by x86 can be clearly seen.
