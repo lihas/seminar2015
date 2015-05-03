@@ -47,6 +47,12 @@
 
 \tableofcontents
 \newpage
+\let\LaTeXStandardClearpage\clearpage
+\let\clearpage\relax
+\listoftables
+\listoffigures
+\let\clearpage\LaTeXStandardClearpage
+\newpage
 \section{Introduction}
 Silicon wafer fabrication technology has advanced by leaps and bounds in recent years.
 This trend, driven by Moore's law, has lead to emergence of new and powerful microprocessors.
@@ -92,17 +98,17 @@ be a primary concern) .
 In the course of this seminar I studied the unique aspects of virtualization on embedded platforms, majorly focusing on the ARM architecture.
 I tried to explore the topic from three different viewpoints. 
 \begin{enumerate}
- \item Architectural differences from x86\\\\
- %\item Unique challenges, and use cases for virtualizing embedded platforms.
- Due to different application domains, and constraints under which the systems are expected to perform, the architectures for desktop computers and servers have evolved
- differently from that of embedded platforms. Highlighting these differences leads to a better understanding of embedded architectures. This is also crucial from the 
- aspect of developing virtualization solutions for them.
- \item Motivations for virtualizing embedded platforms\\\\
+\item Motivations for virtualizing embedded platforms (section\ref{moti})\\
  Embedded platforms are constrained in the amount of available resources, and therefore to make them run an additional piece of software (hypervisors in this case) must have some 
  substantial basis. For any new capability that they are required to support, a solution which incurs least overhead is preferred. Thus running hypervisors on
  them must come with significant gains.
  This part tries to analyse the use cases which give rise to the need for virtualizing them.
- \item Existing virtualization solutions for these platforms\\\\
+ \item Architectural differences from x86 (section~\ref{archdiff2})\\
+ %\item Unique challenges, and use cases for virtualizing embedded platforms.
+ Due to different application domains, and constraints under which the systems are expected to perform, the architectures for desktop computers and servers have evolved
+ differently from that of embedded platforms. Highlighting these differences leads to a better understanding of embedded architectures. This is also crucial from the 
+ aspect of developing virtualization solutions for them.
+ \item Existing virtualization solutions for these platforms (section~\ref{virtsol})\\
  This part analyses the existing virtualization solutions which have been developed for embedded platforms. This is highly influenced by previous two points, as depending on
  the application, and the underlying architecture, the solutions can differ significantly. Analysing the existing solutions helps develop a better insight of the embedded platforms.
 \end{enumerate}
@@ -124,7 +130,7 @@ This resulted in a two fold advantage, one was that the chip count and hence the
 low latency communication, and hence android was able to use real-time services of RTOS for rendering multimedia content. The following list summarizes the main use-cases which 
 are the driving factors behind adoption of virtualization on embedded platforms.
 
-\begin{enumerate}
+\begin{enumerate}\label{moti}
  \item Co-existence of a feature rich OS, and an RTOS\\
  As complexity of embedded system grows, and it becomes important to support multiple connected components, a feature rich OS, which supports a large number of devices, and 
  provides a big set of APIs becomes important. One such example is Android OS running on contemporary mobile phones. These feature rich OSes can be, for example used for creating
@@ -158,6 +164,7 @@ are the driving factors behind adoption of virtualization on embedded platforms.
 %x86 desktop vs non-x86 embedded
 
 \subsection{Architectural differences from x86}
+\label{archdiff2}
 Due to the different application domains, x86 and ARM differ significantly in their architecture. The following list summarizes the main differences.
 \\\\
 \textbf{(I). CPU}
@@ -314,10 +321,31 @@ and an x86 operating system. Both these systems exist on the same device, and wh
 \\
 Intel Quark , is an x86 based System on a chip (SOC) which is intended to be run on embedded systems. Qualcomm on the other hand has plans for server grade ARM processors, which
 will provide a low power alternative to x86 based processors. These developments, though not common now, may change our notions of these systems in the future.
+\subsection{Requirements for virtualizing an embedded system}
+Considering the constraints, and architectural characteristics a virtualization solution must meet the following requirements.
+\begin{itemize}
+ \item \textbf{Size of code}\\
+ Embedded systems are severely constrained in the amount of secondary storage they have, and therefore cannot afford to have a hypervisor with millions of lines of code,
+ as is common for ones intended to run on x86. Smaller code also leaves lesser opportunity for bugs.
+ 
+ \item \textbf{Memory footprint}\\
+ The amount of main memory is meagre on such systems. Therefore there is less room for hypervisor code to run. The hypervisor must be capable of keeping only the necessary data
+ in the main memory. Developers could utilize the fact that all VMs need not be running at the same time, and hence some memory can be swapped to secondary storage. This however
+ should not affect the working of these VMs by severely limiting their responsiveness.
+ \item \textbf{Energy consumption}\\
+ Embedded devices often run on portable power sources like batteries, and replenishing them frequently is not possible. A hypervisor for such a system must be optimized to
+ consume least amount of energy possible. It should aggressively turn off components not required and stun processes that are not needed at a particular time. It should 
+ also judiciously utilize power states of the processor, and  switch to a low power mode when there isn't much activity.
+ \item \textbf{Support for real time scheduling}\\
+ Conventional hypervisors for general purpose systems are oblivious to the processes running inside a VM, therefore supporting an RTOS which will have realtime workload becomes 
+ a challenge. For supporting RTOS, the scheduler must be made aware of the realtime constraints.
+
+\end{itemize}
+
 %\section{Classification of virtualization solutions for different devices on a mobile phone}
 %This section will have a table of devices in a mobile phone, like CPU, camera, etc. and the way to virtualize them.
 \newpage
-\section{Virtualization solutions}
+\section{Virtualization solutions} \label{virtsol}
 Embedded systems encompass a big variety of processor architectures. Unlike desktop, and server platforms, there is no dominant architecture. 
 Therefore a hypervisor which caters to all possible architectures is impractical to make, as subtle differences in architectures greatly impact VMM design. The definition of efficiently virtualizable platform, as given by Popek and Goldberg\cite{Popek:1974:FRV:361011.361073} leads to
  two broad categories of processors: ones that satisfy the constraint for efficient virtualization, i.e. for them the set of sensitive instructions is a subset of privileged instructions, 
@@ -328,7 +356,7 @@ Therefore a hypervisor which caters to all possible architectures is impractical
  \begin{figure}[ht]
  \centering
  \includegraphics[width=300px]{papers}
- \caption{categories of virtualization solutions for different kinds of embedded systems. \footnotesize{ virtualizable: processors for which set of sensitive instructions is a subset of
+ \caption[Categories of virtualization solutions for different kinds of embedded systems]{Categories of virtualization solutions for different kinds of embedded systems. \footnotesize{ virtualizable: processors for which set of sensitive instructions is a subset of
  privileged instructions} \label{fig:papers}}
  \end{figure}
     
@@ -506,6 +534,26 @@ LXC provides a clean and low overhead way to for Virtualization, but has the fol
   background remain reactive in both the cases.
   \\\\
   Other special purpose hypervisors include the ones that are made to support an RTOS, along with a conventional OS. One example of such a hypervisor is RT-XEN\cite{6064510}.
+  \subsection{Comparison of hypervisors}
+  The hypervisors that we have discussed so far are compared
+  \begin{table}
+   \centering
+   \footnotesize
+   \begin{tabular}{L{3cm}|L{3cm}|L{3cm}|L{3cm}|L{3cm}|L{3cm}}
+\textbf{Hypervisor/Paper} & \textbf{Architecture} & \textbf{Method of operation} & \textbf{Use} & \textbf{Host OS} & \textbf{Guest OS}\\
+\hline \hline
+KVM for ARM~\cite{kVM-for-ARM} & ARM & Paravirtualization & Generic virtualization & Linux & Any\\
+KVM/ARM~\cite{Dall:2014:KDI:2541940.2541946} & ARM & H/W supported & Generic virtualization & Linux & Any\\
+Cells~\cite{Andrus:2011:CVM:2043556.2043574} & ARM & LXC\footnote{Linux containers} &  Generic & Linux & Linux\\
+vNative~\cite{7006388} & Intel Atom & Paravirtualization & BYOD & Xen & Android\\
+VMware MVP~\cite{Barr:2010:VMV:1899928.1899945} & ARM & Paravirtualization & BYOD & Android & Android\\
+Power Architecture~\cite{Mittal:2013:EVE:2499368.2451163} & Power Architecture~\footnote{Made by power.org consortium} & Dynamic binary patching~\footnote{Power architecture is virtualizable architecture, the corresponding paper does dynamic binary patching on running VM to make trap-and-emulate more efficient}& Generic Virtualization& Any & Any\\
+OKL4 microvisor~\cite{Heiser:2010:OMC:1851276.1851282} & ARM & Paravirtualization & baremetal & Any\\
+    
+   \end{tabular}
+\caption{Comparison of virtualization solutions}
+  \end{table}
+
  \newpage
  \section{Salient aspects of virtualizing a smart phone}
  Having looked at the architectural aspects of ARM, use cases of virtualization on it, and some existing hypervisors, it seems imperative to analyze the methods to 

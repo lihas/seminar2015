@@ -7,15 +7,17 @@
 \BOOKMARK [3][-]{subsubsection.0.2.2.1}{Unique challenges on ARM platform}{subsection.0.2.2}% 7
 \BOOKMARK [3][-]{subsubsection.0.2.2.2}{Unique challenges on x86 platform}{subsection.0.2.2}% 8
 \BOOKMARK [2][-]{subsection.0.2.3}{Intersection of x86 and embedded systems}{section.0.2}% 9
-\BOOKMARK [1][-]{section.0.3}{Virtualization solutions}{}% 10
-\BOOKMARK [2][-]{subsection.0.3.1}{ Virtualizable platform }{section.0.3}% 11
-\BOOKMARK [2][-]{subsection.0.3.2}{Non Virtualizable platforms}{section.0.3}% 12
-\BOOKMARK [3][-]{subsubsection.0.3.2.1}{Generic hypervisors}{subsection.0.3.2}% 13
-\BOOKMARK [4][-]{paragraph.0.3.2.1.1}{H/W supported virtualization}{subsubsection.0.3.2.1}% 14
-\BOOKMARK [4][-]{paragraph.0.3.2.1.2}{Paravirtualization}{subsubsection.0.3.2.1}% 15
-\BOOKMARK [4][-]{paragraph.0.3.2.1.3}{Micro kernels}{subsubsection.0.3.2.1}% 16
-\BOOKMARK [4][-]{paragraph.0.3.2.1.4}{Linux containers \(LXC\)}{subsubsection.0.3.2.1}% 17
-\BOOKMARK [3][-]{subsubsection.0.3.2.2}{Special purpose hypervisors}{subsection.0.3.2}% 18
-\BOOKMARK [1][-]{section.0.4}{Salient aspects of virtualizing a smart phone}{}% 19
-\BOOKMARK [1][-]{section.0.5}{Conclusion}{}% 20
-\BOOKMARK [1][-]{section.0.5}{References}{}% 21
+\BOOKMARK [2][-]{subsection.0.2.4}{Requirements for virtualizing an embedded system}{section.0.2}% 10
+\BOOKMARK [1][-]{section.0.3}{Virtualization solutions}{}% 11
+\BOOKMARK [2][-]{subsection.0.3.1}{ Virtualizable platform }{section.0.3}% 12
+\BOOKMARK [2][-]{subsection.0.3.2}{Non Virtualizable platforms}{section.0.3}% 13
+\BOOKMARK [3][-]{subsubsection.0.3.2.1}{Generic hypervisors}{subsection.0.3.2}% 14
+\BOOKMARK [4][-]{paragraph.0.3.2.1.1}{H/W supported virtualization}{subsubsection.0.3.2.1}% 15
+\BOOKMARK [4][-]{paragraph.0.3.2.1.2}{Paravirtualization}{subsubsection.0.3.2.1}% 16
+\BOOKMARK [4][-]{paragraph.0.3.2.1.3}{Micro kernels}{subsubsection.0.3.2.1}% 17
+\BOOKMARK [4][-]{paragraph.0.3.2.1.4}{Linux containers \(LXC\)}{subsubsection.0.3.2.1}% 18
+\BOOKMARK [3][-]{subsubsection.0.3.2.2}{Special purpose hypervisors}{subsection.0.3.2}% 19
+\BOOKMARK [2][-]{subsection.0.3.3}{Comparison of hypervisors}{section.0.3}% 20
+\BOOKMARK [1][-]{section.0.4}{Salient aspects of virtualizing a smart phone}{}% 21
+\BOOKMARK [1][-]{section.0.5}{Conclusion}{}% 22
+\BOOKMARK [1][-]{section.0.5}{References}{}% 23

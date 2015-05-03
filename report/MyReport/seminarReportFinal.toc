@@ -1,21 +1,23 @@
-\contentsline {section}{\numberline {1}Introduction}{4}{section.0.1}
-\contentsline {subsection}{\numberline {1.1}Virtualization}{4}{subsection.0.1.1}
-\contentsline {subsection}{\numberline {1.2}Scope of this seminar}{6}{subsection.0.1.2}
-\contentsline {section}{\numberline {2}Virtualization on embedded platforms}{7}{section.0.2}
-\contentsline {subsection}{\numberline {2.1}Architectural differences from x86}{8}{subsection.0.2.1}
-\contentsline {subsection}{\numberline {2.2}Challenges on x86 and ARM platforms}{12}{subsection.0.2.2}
-\contentsline {subsubsection}{\numberline {2.2.1}Unique challenges on ARM platform}{12}{subsubsection.0.2.2.1}
-\contentsline {subsubsection}{\numberline {2.2.2}Unique challenges on x86 platform}{14}{subsubsection.0.2.2.2}
-\contentsline {subsection}{\numberline {2.3}Intersection of x86 and embedded systems}{15}{subsection.0.2.3}
-\contentsline {section}{\numberline {3}Virtualization solutions}{16}{section.0.3}
-\contentsline {subsection}{\numberline {3.1} Virtualizable platform }{16}{subsection.0.3.1}
-\contentsline {subsection}{\numberline {3.2}Non Virtualizable platforms}{18}{subsection.0.3.2}
-\contentsline {subsubsection}{\numberline {3.2.1}Generic hypervisors}{18}{subsubsection.0.3.2.1}
-\contentsline {paragraph}{\numberline {3.2.1.1}H/W supported virtualization}{18}{paragraph.0.3.2.1.1}
-\contentsline {paragraph}{\numberline {3.2.1.2}Paravirtualization}{19}{paragraph.0.3.2.1.2}
-\contentsline {paragraph}{\numberline {3.2.1.3}Micro kernels}{20}{paragraph.0.3.2.1.3}
-\contentsline {paragraph}{\numberline {3.2.1.4}Linux containers (LXC)}{21}{paragraph.0.3.2.1.4}
-\contentsline {subsubsection}{\numberline {3.2.2}Special purpose hypervisors}{22}{subsubsection.0.3.2.2}
-\contentsline {section}{\numberline {4}Salient aspects of virtualizing a smart phone}{24}{section.0.4}
-\contentsline {section}{\numberline {5}Conclusion}{28}{section.0.5}
-\contentsline {section}{References}{29}{section.0.5}
+\contentsline {section}{\numberline {1}Introduction}{6}{section.0.1}
+\contentsline {subsection}{\numberline {1.1}Virtualization}{6}{subsection.0.1.1}
+\contentsline {subsection}{\numberline {1.2}Scope of this seminar}{8}{subsection.0.1.2}
+\contentsline {section}{\numberline {2}Virtualization on embedded platforms}{9}{section.0.2}
+\contentsline {subsection}{\numberline {2.1}Architectural differences from x86}{10}{subsection.0.2.1}
+\contentsline {subsection}{\numberline {2.2}Challenges on x86 and ARM platforms}{14}{subsection.0.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Unique challenges on ARM platform}{14}{subsubsection.0.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}Unique challenges on x86 platform}{16}{subsubsection.0.2.2.2}
+\contentsline {subsection}{\numberline {2.3}Intersection of x86 and embedded systems}{17}{subsection.0.2.3}
+\contentsline {subsection}{\numberline {2.4}Requirements for virtualizing an embedded system}{17}{subsection.0.2.4}
+\contentsline {section}{\numberline {3}Virtualization solutions}{19}{section.0.3}
+\contentsline {subsection}{\numberline {3.1} Virtualizable platform }{19}{subsection.0.3.1}
+\contentsline {subsection}{\numberline {3.2}Non Virtualizable platforms}{21}{subsection.0.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}Generic hypervisors}{21}{subsubsection.0.3.2.1}
+\contentsline {paragraph}{\numberline {3.2.1.1}H/W supported virtualization}{21}{paragraph.0.3.2.1.1}
+\contentsline {paragraph}{\numberline {3.2.1.2}Paravirtualization}{22}{paragraph.0.3.2.1.2}
+\contentsline {paragraph}{\numberline {3.2.1.3}Micro kernels}{23}{paragraph.0.3.2.1.3}
+\contentsline {paragraph}{\numberline {3.2.1.4}Linux containers (LXC)}{24}{paragraph.0.3.2.1.4}
+\contentsline {subsubsection}{\numberline {3.2.2}Special purpose hypervisors}{25}{subsubsection.0.3.2.2}
+\contentsline {subsection}{\numberline {3.3}Comparison of hypervisors}{27}{subsection.0.3.3}
+\contentsline {section}{\numberline {4}Salient aspects of virtualizing a smart phone}{28}{section.0.4}
+\contentsline {section}{\numberline {5}Conclusion}{32}{section.0.5}
+\contentsline {section}{References}{33}{section.0.5}
