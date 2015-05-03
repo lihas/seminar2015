@@ -92,17 +92,17 @@ be a primary concern) .
 In the course of this seminar I studied the unique aspects of virtualization on embedded platforms, majorly focusing on the ARM architecture.
 I tried to explore the topic from three different viewpoints. 
 \begin{enumerate}
- \item Architectural differences from x86\\\\
- %\item Unique challenges, and use cases for virtualizing embedded platforms.
- Due to different application domains, and constraints under which the systems are expected to perform, the architectures for desktop computers and servers have evolved
- differently from that of embedded platforms. Highlighting these differences leads to a better understanding of embedded architectures. This is also crucial from the 
- aspect of developing virtualization solutions for them.
- \item Motivations for virtualizing embedded platforms\\\\
+\item Motivations for virtualizing embedded platforms (section\ref{moti})\\
  Embedded platforms are constrained in the amount of available resources, and therefore to make them run an additional piece of software (hypervisors in this case) must have some 
  substantial basis. For any new capability that they are required to support, a solution which incurs least overhead is preferred. Thus running hypervisors on
  them must come with significant gains.
  This part tries to analyse the use cases which give rise to the need for virtualizing them.
- \item Existing virtualization solutions for these platforms\\\\
+ \item Architectural differences from x86 (section~\ref{archdiff2})\\
+ %\item Unique challenges, and use cases for virtualizing embedded platforms.
+ Due to different application domains, and constraints under which the systems are expected to perform, the architectures for desktop computers and servers have evolved
+ differently from that of embedded platforms. Highlighting these differences leads to a better understanding of embedded architectures. This is also crucial from the 
+ aspect of developing virtualization solutions for them.
+ \item Existing virtualization solutions for these platforms (section~\ref{virtsol})\\
  This part analyses the existing virtualization solutions which have been developed for embedded platforms. This is highly influenced by previous two points, as depending on
  the application, and the underlying architecture, the solutions can differ significantly. Analysing the existing solutions helps develop a better insight of the embedded platforms.
 \end{enumerate}
@@ -124,7 +124,7 @@ This resulted in a two fold advantage, one was that the chip count and hence the
 low latency communication, and hence android was able to use real-time services of RTOS for rendering multimedia content. The following list summarizes the main use-cases which 
 are the driving factors behind adoption of virtualization on embedded platforms.
 
-\begin{enumerate}
+\begin{enumerate}\label{moti}
  \item Co-existence of a feature rich OS, and an RTOS\\
  As complexity of embedded system grows, and it becomes important to support multiple connected components, a feature rich OS, which supports a large number of devices, and 
  provides a big set of APIs becomes important. One such example is Android OS running on contemporary mobile phones. These feature rich OSes can be, for example used for creating
@@ -158,6 +158,7 @@ are the driving factors behind adoption of virtualization on embedded platforms.
 %x86 desktop vs non-x86 embedded
 
 \subsection{Architectural differences from x86}
+\label{archdiff2}
 Due to the different application domains, x86 and ARM differ significantly in their architecture. The following list summarizes the main differences.
 \\\\
 \textbf{(I). CPU}
@@ -317,7 +318,7 @@ will provide a low power alternative to x86 based processors. These developments
 %\section{Classification of virtualization solutions for different devices on a mobile phone}
 %This section will have a table of devices in a mobile phone, like CPU, camera, etc. and the way to virtualize them.
 \newpage
-\section{Virtualization solutions}
+\section{Virtualization solutions} \label{virtsol}
 Embedded systems encompass a big variety of processor architectures. Unlike desktop, and server platforms, there is no dominant architecture. 
 Therefore a hypervisor which caters to all possible architectures is impractical to make, as subtle differences in architectures greatly impact VMM design. The definition of efficiently virtualizable platform, as given by Popek and Goldberg\cite{Popek:1974:FRV:361011.361073} leads to
  two broad categories of processors: ones that satisfy the constraint for efficient virtualization, i.e. for them the set of sensitive instructions is a subset of privileged instructions, 
@@ -508,10 +509,28 @@ LXC provides a clean and low overhead way to for Virtualization, but has the fol
   Other special purpose hypervisors include the ones that are made to support an RTOS, along with a conventional OS. One example of such a hypervisor is RT-XEN\cite{6064510}.
  \newpage
  \section{Salient aspects of virtualizing a smart phone}
- Apart from the constraints of an embedded systems, as discussed previously, there are several factors such as how a user interacts with a mobile phone can affect the development.
- For example in a mobile phone under certain usage scenarios it is feasible to allocate all devices to one VM exclusively as is done by vNative\cite{7006388}. This
- simplifies the development of a hypervisor. The following discussion borrows from previous chapters to summarize and suggest efficient ways of virtualizing different components of a smart phone,
- while taking into account all these additional factors.
+ Having looked at the architectural aspects of ARM, use cases of virtualization on it, and some existing hypervisors, it seems imperative to analyze the methods to 
+ virtualize different components of a smartphone. The components such as secondary storage, telephony, etc. have different characteristics, and therefore the ways to multplex
+ them between VMs differ. Rather than discussing a particular hypervisor, this section borrows from the previous study to suggest ways to virtualize these
+ components. Any such solution must first fulfil the following constraints.
+ \begin{itemize}
+  \item \textbf{Performance}\\
+  The overheads of virtulization should not be such that it is perceivable by user of the phone. Unlike in x86 world where various benchmarks are used to determine performance,
+  on a mobile phone this is limited by the experience of user. As human cognition is slower so operations such as switching between VMs need not be as fast, this gives
+  developers some more headroom. On the other hand it should not be so slow that it annoys the user.
+  \item \textbf{Power consumption}\\
+  More the number of VMs that will run on a mobile phone, more will be the power consumed by the device. As these devices are required to run on a battery for a long duration,
+  the battery life must not be affected. Unlike on desktop and server environments, the VMs running on a mobile phone need not run continuously, as the user at a time will be interacting
+  with only a single VM. Also, the sleep states of the processor can be dynamically adjusted to prolong the battery life.
+  \item \textbf{Isolation}\\
+  The VMs must be isolated from one another. The secondary storage on mobile devices is limited in its capacity, and performance. Some optimizations must be done to
+  overcome these limitations.
+ \end{itemize}
+
+ %Apart from the constraints of an embedded systems, as discussed previously, there are several factors such as how a user interacts with a mobile phone can affect the development.
+ %For example in a mobile phone under certain usage scenarios it is feasible to allocate all devices to one VM exclusively as is done by vNative\cite{7006388}. This
+ %simplifies the development of a hypervisor. The following discussion borrows from previous chapters to summarize and suggest efficient ways of virtualizing different components of a smart phone,
+ %while taking into account all these additional factors.
  
  \subsection*{CPU}
  For multiplexing the CPU, any of the techniques presented in generic hypervisors section earlier can be used. The usual methods, as explained there are paravirtualization,

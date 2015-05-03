@@ -309,10 +309,11 @@ Some of these challenges faced on the two architectures are compared in~\ref{tab
 \subsection{Intersection of x86 and embedded systems}
 Despite their orthogonal nature, these can sometimes be seen as having a role reversal, and at other times sharing a symbiotic relationship.
 A system built around an x86 processor, often has smaller subsystems which are an an embedded system in their own right. The controller card on a hard drive, peripheral interfacing units,
-etc. are examples of such systems. CUPP computing, a US based company recently rolled out PunkThis module, which allows users to seamlessly switch between Android, running on ARM
+etc. are examples of such systems. CUPP computing, a US based company recently rolled out PunkThis module, which allows a user to seamlessly switch between Android, running on ARM
 and an x86 operating system. Both these systems exist on the same device, and while the former provides a longer battery life, the latter offers processing prowess.
 \\
-Intel Quark , is an x86 based SOC\footnote{SOC:System On a Chip}
+Intel Quark , is an x86 based System on a chip (SOC) which is intended to be run on embedded systems. Qualcomm on the other hand has plans for server grade ARM processors, which
+will provide a low power alternative to x86 based processors. These developments, though not common now, may change our notions of these systems in the future.
 %\section{Classification of virtualization solutions for different devices on a mobile phone}
 %This section will have a table of devices in a mobile phone, like CPU, camera, etc. and the way to virtualize them.
 \newpage
@@ -507,10 +508,28 @@ LXC provides a clean and low overhead way to for Virtualization, but has the fol
   Other special purpose hypervisors include the ones that are made to support an RTOS, along with a conventional OS. One example of such a hypervisor is RT-XEN\cite{6064510}.
  \newpage
  \section{Salient aspects of virtualizing a smart phone}
- Apart from the constraints of an embedded systems, as discussed previously, there are several factors such as how a user interacts with a mobile phone can affect the development.
- For example in a mobile phone under certain usage scenarios it is feasible to allocate all devices to one VM exclusively as is done by vNative\cite{7006388}. This
- simplifies the development of a hypervisor. The following discussion borrows from previous chapters to summarize and suggest efficient ways of virtualizing different components of a smart phone,
- while taking into account all these additional factors.
+ Having looked at the architectural aspects of ARM, use cases of virtualization on it, and some existing hypervisors, it seems imperative to analyze the methods to 
+ virtualize different components of a smartphone. The components such as secondary storage, telephony, etc. have different characteristics, and therefore the ways to multplex
+ them between VMs differ. Rather than discussing a particular hypervisor, this section borrows from the previous study to suggest ways to virtualize these
+ components. Any such solution must first fulfil the following constraints.
+ \begin{itemize}
+  \item \textbf{Performance}\\
+  The overheads of virtulization should not be such that it is perceivable by user of the phone. Unlike in x86 world where various benchmarks are used to determine performance,
+  on a mobile phone this is limited by the experience of user. As human cognition is slower so operations such as switching between VMs need not be as fast, this gives
+  developers some more headroom. On the other hand it should not be so slow that it annoys the user.
+  \item \textbf{Power consumption}\\
+  More the number of VMs that will run on a mobile phone, more will be the power consumed by the device. As these devices are required to run on a battery for a long duration,
+  the battery life must not be affected. Unlike on desktop and server environments, the VMs running on a mobile phone need not run continuously, as the user at a time will be interacting
+  with only a single VM. Also, the sleep states of the processor can be dynamically adjusted to prolong the battery life.
+  \item \textbf{Isolation}\\
+  The VMs must be isolated from one another. The secondary storage on mobile devices is limited in its capacity, and performance. Some optimizations must be done to
+  overcome these limitations.
+ \end{itemize}
+
+ %Apart from the constraints of an embedded systems, as discussed previously, there are several factors such as how a user interacts with a mobile phone can affect the development.
+ %For example in a mobile phone under certain usage scenarios it is feasible to allocate all devices to one VM exclusively as is done by vNative\cite{7006388}. This
+ %simplifies the development of a hypervisor. The following discussion borrows from previous chapters to summarize and suggest efficient ways of virtualizing different components of a smart phone,
+ %while taking into account all these additional factors.
  
  \subsection*{CPU}
  For multiplexing the CPU, any of the techniques presented in generic hypervisors section earlier can be used. The usual methods, as explained there are paravirtualization,
